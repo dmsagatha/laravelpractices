@@ -55,14 +55,12 @@ class UserController extends Controller
     // Guardar contraseña encriptada
     $data['password'] = Hash::make($data['password']);
 
-    /* $response = User::create($data);
+    $response = User::create($data);
     
     if ($response) {
       return redirect()->route('users.index')->with('success', 'Usuario creado correctamente!');
     }
-    return redirect()->back()->with('error', 'Error al crear el usuario'); */
-    User::create($data);
-    return response()->json(['success', 'Usuario creado correctamente!']);
+    return redirect()->back()->with('error', 'Error al crear el usuario');
   }
 
   public function show(User $user)

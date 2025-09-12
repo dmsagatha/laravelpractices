@@ -19,7 +19,7 @@
           </div>
         @endif
 
-        <form class="dropzone" id="formDropzone" action="{{ isset($user) ? route('users.update', $user) : route('users.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="userForm" action="{{ isset($user) ? route('users.update', $user) : route('users.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           @if (isset($user)) @method('PUT') @endif
         
@@ -44,20 +44,33 @@
 
     <script>
       Dropzone.autoDiscover = false;
-      Dropzone.options.myGreatDropzone = { // camelized version of the `id`
-        paramName: "file", // The name that will be used to transfer the file
-        maxFilesize: 2, // MB
-        dictDefaultMessage: "Arrastra y suelta los archivos aquí o haz clic",
-        /* accept: function(file, done) {
-          if (file.name == "justinbieber.jpg") {
-            done("Naha, you don't.");
-          }
-          else { done(); }
-        } */
-        success: function(file, response) {
-          console.log(response.success);
+      var dropzone = new Dropzone("#avatar-dropzone", {
+        url: "#",
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        maxFiles: 1,
+        acceptedFiles: "image/*",
+        dictDefaultMessage: "Arrastra o haz clic para seleccionar el avatar",
+        init: function() {
+            this.on("addedfile", function(file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatar-preview').src = e.target.result;
+                    document.getElementById('avatar-preview').classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+
+                var dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                document.getElementById('avatar-input').files = dataTransfer.files;
+            });
+            this.on("removedfile", function() {
+                document.getElementById('avatar-preview').classList.add('hidden');
+                document.getElementById('avatar-preview').src = "#";
+                document.getElementById('avatar-input').value = "";
+            });
         }
-      };
+      });
     </script>
   @endpush
 </x-app-layout>

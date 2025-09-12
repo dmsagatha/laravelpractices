@@ -20,7 +20,13 @@
 
 
 <div class="form-group mb-4">
-  <label class="form-label text-muted opacity-75 fw-medium" for="formImage">Image</label>
+  <div class="mb-4">
+    <label class="block font-medium mb-1">Avatar</label>
+    <div id="avatar-dropzone" class="dropzone"></div>
+    <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*">
+    <img id="avatar-preview" src="#" alt="Avatar Preview" class="mt-2 hidden w-24 h-24 rounded object-cover">
+  </div>
+  {{-- <label class="form-label text-muted opacity-75 fw-medium" for="formImage">Image</label>
   <div class="dropzone-drag-area form-control" id="previews">
     <div class="dz-message text-muted opacity-50" data-dz-message>
       <span>Arrastra y suelta los archivos aquí o hacer clic</span>
@@ -36,5 +42,5 @@
       </div>
     </div>
   </div>
-  <div class="invalid-feedback fw-bold">Por favor sube una imagen.</div>
+  <div class="invalid-feedback fw-bold">Por favor sube una imagen.</div> --}}
 </div>
