@@ -19,8 +19,17 @@ class UserController extends Controller
   }
   
   public function store(Request $request)
-  {}
-  
+  {
+    $request->validate([
+      'name'  => 'required|string|max:255',
+      'email' => 'required|email|unique:users,email',
+      'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+    dd($request->all());
+
+    $data = $request->only('name', 'email');
+  }
+
   public function edit(User $user)
   {
     return view('backend.users.createUpdate', compact('user'));

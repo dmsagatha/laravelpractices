@@ -20,20 +20,20 @@
           </thead>
           <tbody>
             @foreach ($users as $user)
-            <tr class="border-t border-gray-300 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-slate-700">
-              <td class="p-2">
-                <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="w-12 h-12 rounded-full object-cover" />
-              </td>
-              <td class="p-2">{{ $user->name }}</td>
-              <td class="p-2">{{ $user->email }}</td>
-              <td class="p-2">
-                <a href="{{ route('users.edit',$user) }}" class="text-blue-500">Editar</a>
-                <form action="{{ route('users.destroy',$user) }}" method="POST" class="inline">
-                  @csrf @method('DELETE')
-                  <button onclick="return confirm('¿Eliminar?')" class="text-red-500 ml-2">Eliminar</button>
-                </form>
-              </td>
-            </tr>
+              <tr class="border-t border-gray-300 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                <td class="p-2">
+                  <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="w-12 h-12 rounded-full object-cover" />
+                </td>
+                <td class="p-2">{{ $user->name }}</td>
+                <td class="p-2">{{ $user->email }}</td>
+                <td class="p-2">
+                  <a href="{{ route('users.edit',$user) }}" class="text-blue-500">Editar</a>
+                  <form action="{{ route('users.destroy',$user) }}" method="POST" class="inline">
+                    @csrf @method('DELETE')
+                    <button onclick="return confirm('¿Eliminar?')" class="text-red-500 ml-2">Eliminar</button>
+                  </form>
+                </td>
+              </tr>
             @endforeach
           </tbody>
         </table>
