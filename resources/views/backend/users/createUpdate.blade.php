@@ -24,27 +24,35 @@
           @if (isset($user))
             @method('PUT')
           @endif
+
+          <!-- Nombre -->
+          <x-forms.input-label label="Nombre" name="name" type="text" :value="$user->name ?? null" />
           
-          <div class="grid grid-cols-6 gap-x-10 gap-y-8">
-            <!-- Name -->
-            <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-              <x-forms.input-floating label="Nombre" name="name" type="text" :value="$user->name ?? null" />
-            </div>
+          <!-- Email -->
+          <x-forms.input-label label="Email" name="email" type="email" :value="$user->email ?? null" />
+          
+          <!-- Password -->
+          <x-forms.input-label label="{{ isset($user) ? 'Contraseña (opcional)' : 'Contraseña' }}" name="password" type="password" />
+          <x-forms.input-label label="{{ isset($user) ? 'Confirmar contraseña (opcional)' : 'Confirmar contraseña' }}" name="password_confirmation" type="password" />
 
-            <!-- Email -->
-            <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-              <x-forms.input-floating label="Correo electrónico" name="email" type="email" :value="$user->email ?? null" />
+          <!-- AVATAR SIN DROPZONE -->
+          <!-- Avatar actual (solo en edición) -->
+          {{-- @if(isset($user) && $user->avatar)
+            <div class="flex items-center space-x-4">
+              <img src="{{ asset('storage/'.$user->avatar) }}" alt="Avatar actual" class="w-20 h-20 rounded-full object-cover border border-gray-300 dark:border-gray-600">
             </div>
+          @endif --}}
 
-            <!-- Password -->
-            <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-              <x-forms.input-floating label="{{ isset($user) ? 'Contraseña (opcional)' : 'Contraseña' }}" name="password" type="password" />
-            </div>
-
-            <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-              <x-forms.input-floating label="{{ isset($user) ? 'Confirmar contraseña (opcional)' : 'Confirmar contraseña' }}" name="password_confirmation" type="password"/>
-            </div>
-          </div>
+          <!-- Avatar nuevo -->
+          {{-- <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {{ isset($user) ? 'Cambiar Avatar' : 'Subir Avatar' }}
+            </label>
+            <input type="file" name="avatar" accept="image/*" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-gray-200">
+            @error('avatar')
+              <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+            @enderror
+          </div> --}}
 
           <!-- AVATAR CON DROPZONE -->
           <div>
@@ -74,41 +82,88 @@
   </div>
 
   @push('scripts')
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    {{-- <script>
+      var loadFile = function(event) {
+        var input = event.target;
+        var file = input.files[0];
+        var type = file.type;
 
+        var output = document.getElementById('preview_img');
+
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+      };
+    </script> --}}
+    
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    
     <script>
       Dropzone.autoDiscover = false;
+          
+      const avatarDropzone = new Dropzone("#avatar-dropzone", {
+        url: "#", // no se usa
+        autoProcessQueue: false,
+        maxFiles: 1,
+        acceptedFiles: "image/*",
+        addRemoveLinks: true,
+        dictDefaultMessage: "Arrastra o haz clic para subir una imagen",
+        init: function() {
+          // Si $user->avatar es NULL, no carga nada
+          @if(isset($user) && $user->avatar)
+            const mockFile = { name: "Avatar actual", size: 12345, type: 'image/jpeg' };
+            this.displayExistingFile(mockFile, "{{ asset('storage/'.$user->avatar) }}");
+            this.files.push(mockFile);
+          @endif
 
-      const avatarDropzone = document.getElementById("avatar-dropzone");
-      if (avatarDropzone) {
-        new Dropzone("#avatar-dropzone", {
-          url: "#", // Evita subida inmediata, el form normal se encarga
-          autoProcessQueue: false,
-          maxFiles: 1,
-          acceptedFiles: "image/*",
-          addRemoveLinks: true,
-          init: function () {
-              this.on("addedfile", file => {
-                  const reader = new FileReader();
-                  reader.onload = e => {
-                      let preview = document.getElementById("preview-image");
-                      if (!preview) {
-                          preview = document.createElement("img");
-                          preview.id = "preview-image";
-                          preview.className = "w-24 h-24 rounded mt-2";
-                          avatarDropzone.parentNode.appendChild(preview);
-                      }
-                      preview.src = e.target.result;
-                  };
-                  reader.readAsDataURL(file);
-              });
-              this.on("removedfile", () => {
-                  const preview = document.getElementById("preview-image");
-                  if (preview) preview.remove();
-              });
+          this.on("addedfile", file => {
+            if (this.files.length > 1) {
+              this.removeFile(this.files[0]);
+            }
+          });
+        }
+      });
+
+      // Botón para quitar avatar
+      document.getElementById("remove-avatar-btn").addEventListener("click", function () {
+        avatarDropzone.removeAllFiles(true); // limpiar dropzone
+        // Marcar hidden input para el backend
+        let input = document.querySelector("input[name='remove_avatar']");
+        if (!input) {
+          input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "remove_avatar";
+          input.value = "1";
+          document.getElementById("user-form").appendChild(input);
+        } else {
+            input.value = "1";
+        }
+      });
+
+      // Interceptar el submit
+      document.getElementById("user-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const form = this;
+        const formData = new FormData(form);
+
+        if (avatarDropzone.getAcceptedFiles().length) {
+          formData.append("avatar", avatarDropzone.getAcceptedFiles()[0]);
+        }
+
+        fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: {
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+          }
+        }).then(response => {
+          if (response.ok) {
+            window.location.href = "{{ route('users.index') }}";
           }
         });
-      }
-    </script>
+      });
+    </script>      
   @endpush
 </x-app-layout>
