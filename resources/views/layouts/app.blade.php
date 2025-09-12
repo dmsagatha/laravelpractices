@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-  x-data="{
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{
     darkMode: localStorage.getItem('darkMode') === 'true',
     toggleTheme() {
       this.darkMode = !this.darkMode;
       localStorage.setItem('darkMode', this.darkMode);
     }
-  }"
-  :class="{ 'dark': darkMode }"
->
+  }" :class="{ 'dark': darkMode }">
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,13 +23,13 @@
 
     @stack('styles')
   </head>
-  <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+  <body class="font-sans antialiased bg-stone-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div class="min-h-screen">
       @include('layouts.navigation')
 
       <!-- Page Heading -->
       @isset($header)
-      <header class="bg-white dark:bg-gray-800 shadow">
+      <header class="bg-slate-50 dark:bg-gray-800 shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           {{ $header }}
         </div>
@@ -39,11 +37,11 @@
       @endisset
 
       <!-- Page Content -->
-      <main>
+      <main class="px-5 py-8">
         {{ $slot }}
       </main>
     </div>
-    
+
     @stack('scripts')
   </body>
 </html>

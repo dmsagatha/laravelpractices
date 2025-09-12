@@ -25,47 +25,9 @@
         
           @include('backend.users._form')
 
-        <div class="pt-4 bg-slate-50 dark:bg-slate-800 text-center space-y-2">
-          <button type="submit" class="inline-flex items-center justify-center bg-green-600 border border-transparent rounded-md font-medium px-3 py-2 mt-4 mr-2 mb-2 text-center text-white hover:bg-green-500 focus:outline-none focus:border-green-700 focus:ring-0 focus:ring-green-200 active:bg-green-600 disabled:opacity-25 transition">
-            {{ isset($user) ? 'Actualizar' : 'Crear' }}
-          </button>
-        </div>
-
-          <!-- AVATAR SIN DROPZONE -->
-          <!-- Avatar actual (solo en edición) -->
-          {{-- @if(isset($user) && $user->avatar)
-            <div class="flex items-center space-x-4">
-              <img src="{{ asset('storage/'.$user->avatar) }}" alt="Avatar actual" class="w-20 h-20 rounded-full object-cover border border-gray-300 dark:border-gray-600">
-            </div>
-          @endif --}}
-
-          <!-- Avatar nuevo -->
-          {{-- <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {{ isset($user) ? 'Cambiar Avatar' : 'Subir Avatar' }}
-            </label>
-            <input type="file" name="avatar" accept="image/*" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-slate-700 dark:text-gray-200">
-            @error('avatar')
-              <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-            @enderror
-          </div> --}}
-
-          <!-- AVATAR CON DROPZONE -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {{ isset($user) ? 'Cambiar Avatar' : 'Subir Avatar' }}
-            </label>
-          
-            <div id="avatar-dropzone" class="dropzone border-2 border-dashed rounded-lg p-4 bg-gray-50 dark:bg-slate-700">
-            </div>
-          
-            @error('avatar')
-              <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-            @enderror
-          </div>
-          <div class="mt-2">
-            <button type="button" id="remove-avatar-btn" class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700">
-              Quitar avatar
+          <div class="pt-4 bg-slate-50 dark:bg-slate-800 text-center space-y-2">
+            <button type="submit" class="inline-flex items-center justify-center bg-green-600 border border-transparent rounded-md font-medium px-3 py-2 mt-4 mr-2 mb-2 text-center text-white hover:bg-green-500 focus:outline-none focus:border-green-700 focus:ring-0 focus:ring-green-200 active:bg-green-600 disabled:opacity-25 transition">
+              {{ isset($user) ? 'Actualizar' : 'Crear' }}
             </button>
           </div>
         </form>
