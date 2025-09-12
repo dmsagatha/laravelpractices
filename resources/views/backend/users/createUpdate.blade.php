@@ -19,21 +19,17 @@
           </div>
         @endif
 
-        <form id="user-form" action="{{ isset($user) ? route('users.update', $user) : route('users.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ isset($user) ? route('users.update', $user) : route('users.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
-          @if (isset($user))
-            @method('PUT')
-          @endif
+          @if (isset($user)) @method('PUT') @endif
+        
+          @include('backend.users._form')
 
-          <!-- Nombre -->
-          <x-forms.input-label label="Nombre" name="name" type="text" :value="$user->name ?? null" />
-          
-          <!-- Email -->
-          <x-forms.input-label label="Email" name="email" type="email" :value="$user->email ?? null" />
-          
-          <!-- Password -->
-          <x-forms.input-label label="{{ isset($user) ? 'Contraseña (opcional)' : 'Contraseña' }}" name="password" type="password" />
-          <x-forms.input-label label="{{ isset($user) ? 'Confirmar contraseña (opcional)' : 'Confirmar contraseña' }}" name="password_confirmation" type="password" />
+        <div class="pt-4 bg-slate-50 dark:bg-slate-800 text-center space-y-2">
+          <button type="submit" class="inline-flex items-center justify-center bg-green-600 border border-transparent rounded-md font-medium px-3 py-2 mt-4 mr-2 mb-2 text-center text-white hover:bg-green-500 focus:outline-none focus:border-green-700 focus:ring-0 focus:ring-green-200 active:bg-green-600 disabled:opacity-25 transition">
+            {{ isset($user) ? 'Actualizar' : 'Crear' }}
+          </button>
+        </div>
 
           <!-- AVATAR SIN DROPZONE -->
           <!-- Avatar actual (solo en edición) -->
@@ -72,10 +68,6 @@
               Quitar avatar
             </button>
           </div>
-
-          <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-4">
-            {{ isset($user) ? 'Actualizar' : 'Crear' }}
-          </button>
         </form>
       </div>
     </div>

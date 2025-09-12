@@ -28,32 +28,14 @@ class UserController extends Controller
     $data = $request->validated();
 
     if ($request->hasFile('avatar')) {
+      // Obtener el archivo cargado
+      $imageFile = $request->file('avatar');
+
       // Storage:Crear directorio, guardar y eliminar archivos el directorio si no existe
       Storage::disk('public')->makeDirectory('avatars');
 
-      // Obtener el archivo cargado
-      $imageFile = $request->file('avatar');
-
-      // Intervention Image v3: Leer, procesar y exportar imágenes
-      $manager = new ImageManager(new Driver());
-      $image = $manager->read($imageFile);
-
       // Generar un nombre único para el archivo
       $imageName = 'avatars/' . time() . '.' . $imageFile->getClientOriginalExtension();
-
-      // Guardar en storage/app/public/avatars
-      Storage::disk('public')->put($imageName, (string) $image->encode());
-
-      // Guardar la ruta en la BD
-      $data['avatar'] = $imageName;
-    }
-
-    /* if ($request->hasFile('avatar')) {
-      // Obtener el archivo cargado
-      $imageFile = $request->file('avatar');
-
-      // Generar un nombre único para el archivo
-      $fileName = time() . '.' . $imageFile->getClientOriginalExtension();
 
       // Intervention Image v3: Leer, procesar y exportar imágenes
       $manager = new ImageManager(new Driver());
@@ -61,17 +43,14 @@ class UserController extends Controller
 
       // Redimensionar y exportar como JPG
       $resized = $image->cover(300, 300)->toJpeg(80);
-      
-      // Storage:Crear directorio, guardar y eliminar archivos el directorio si no existe
-      Storage::disk('public')->makeDirectory('avatars');
 
       // Guardar en storage/app/public/avatars
-      Storage::disk('public')->put("avatars/{$fileName}", $resized);
+      // Storage::disk('public')->put($imageName, (string) $image->encode());
+      Storage::disk('public')->put($imageName, $resized);
 
       // Guardar la ruta en la BD
-      // $data['avatar'] = "avatars/{$fileName}";
-      $data['avatar'] = $imageFile->store('avatars', 'public');
-    } */
+      $data['avatar'] = $imageName;
+    }
 
     // Guardar contraseña encriptada
     $data['password'] = Hash::make($data['password']);
