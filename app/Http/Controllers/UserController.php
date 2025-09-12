@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -30,8 +33,38 @@ class UserController extends Controller
 
     $data = $request->validated();
     $data = $request->only('name', 'email');
-    $data['password'] = Hash::make($request->password);
     // dd($request->all());
+
+    if ($request->hasFile('avatar')) {
+      // Storage:Crear directorio, guardar y eliminar archivos el directorio si no existe
+      Storage::disk('public')->makeDirectory('avatars');
+
+      // Obtener el archivo cargado
+      $imageFile = $request->file('avatar');
+
+      // Intervention Image v3: Leer, procesar y exportar imágenes
+      $manager = new ImageManager(new Driver());
+      $image = $manager->read($imageFile);
+
+      // Generar un nombre único para el archivo
+      $imageName = 'avatars/' . time() . '.' . $imageFile->getClientOriginalExtension();
+
+      // Guardar en storage/app/public/avatars
+      Storage::disk('public')->put($imageName, (string) $image->encode());
+
+      // Guardar la ruta en la BD
+      $data['avatar'] = $imageName;
+    }
+
+    // Guardar contraseña encriptada
+    $data['password'] = Hash::make($request->password);
+
+    $response = User::create($data);
+    
+    if ($response) {
+      return redirect()->route('users.index')->with('success', 'Usuario creado correctamente!');
+    }
+    return redirect()->back()->with('error', 'Error al crear el usuario');
   }
 
   public function edit(User $user)
