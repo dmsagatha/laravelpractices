@@ -46,6 +46,25 @@
             </div>
           </div>
 
+          <!-- AVATAR CON DROPZONE -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {{ isset($user) ? 'Cambiar Avatar' : 'Subir Avatar' }}
+            </label>
+          
+            <div id="avatar-dropzone" class="dropzone border-2 border-dashed rounded-lg p-4 bg-gray-50 dark:bg-slate-700">
+            </div>
+          
+            @error('avatar')
+              <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+            @enderror
+          </div>
+          <div class="mt-2">
+            <button type="button" id="remove-avatar-btn" class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700">
+              Quitar avatar
+            </button>
+          </div>
+
           <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-4">
             {{ isset($user) ? 'Actualizar' : 'Crear' }}
           </button>
@@ -55,5 +74,41 @@
   </div>
 
   @push('scripts')
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
+    <script>
+      Dropzone.autoDiscover = false;
+
+      const avatarDropzone = document.getElementById("avatar-dropzone");
+      if (avatarDropzone) {
+        new Dropzone("#avatar-dropzone", {
+          url: "#", // Evita subida inmediata, el form normal se encarga
+          autoProcessQueue: false,
+          maxFiles: 1,
+          acceptedFiles: "image/*",
+          addRemoveLinks: true,
+          init: function () {
+              this.on("addedfile", file => {
+                  const reader = new FileReader();
+                  reader.onload = e => {
+                      let preview = document.getElementById("preview-image");
+                      if (!preview) {
+                          preview = document.createElement("img");
+                          preview.id = "preview-image";
+                          preview.className = "w-24 h-24 rounded mt-2";
+                          avatarDropzone.parentNode.appendChild(preview);
+                      }
+                      preview.src = e.target.result;
+                  };
+                  reader.readAsDataURL(file);
+              });
+              this.on("removedfile", () => {
+                  const preview = document.getElementById("preview-image");
+                  if (preview) preview.remove();
+              });
+          }
+        });
+      }
+    </script>
   @endpush
 </x-app-layout>
