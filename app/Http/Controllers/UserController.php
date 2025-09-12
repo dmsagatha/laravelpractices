@@ -28,6 +28,7 @@ class UserController extends Controller
       'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]); */
 
+    $data = $request->validated();
     $data = $request->only('name', 'email');
     $data['password'] = Hash::make($request->password);
     // dd($request->all());
