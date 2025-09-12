@@ -19,7 +19,7 @@
           </div>
         @endif
 
-        <form action="{{ isset($user) ? route('users.update', $user) : route('users.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="dropzone" id="formDropzone" action="{{ isset($user) ? route('users.update', $user) : route('users.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           @if (isset($user)) @method('PUT') @endif
         
@@ -41,8 +41,23 @@
 
   @push('scripts')
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    
+
     <script>
+      Dropzone.autoDiscover = false;
+      Dropzone.options.myGreatDropzone = { // camelized version of the `id`
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        dictDefaultMessage: "Arrastra y suelta los archivos aquí o haz clic",
+        /* accept: function(file, done) {
+          if (file.name == "justinbieber.jpg") {
+            done("Naha, you don't.");
+          }
+          else { done(); }
+        } */
+        success: function(file, response) {
+          console.log(response.success);
+        }
+      };
     </script>
   @endpush
 </x-app-layout>
