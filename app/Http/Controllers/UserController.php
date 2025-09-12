@@ -41,7 +41,7 @@ class UserController extends Controller
       $manager = new ImageManager(new Driver());
       $image = $manager->read($imageFile);
 
-      // Redimensionar y exportar como JPG
+      // Redimensiona a 300x300 (centrado y cortado) y exportar como JPG 
       $resized = $image->cover(300, 300)->toJpeg(80);
 
       // Guardar en storage/app/public/avatars
