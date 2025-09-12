@@ -35,89 +35,14 @@
     </div>
   </div>
 
+  @push('styles')
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+  @endpush
+
   @push('scripts')
-    {{-- <script>
-      var loadFile = function(event) {
-        var input = event.target;
-        var file = input.files[0];
-        var type = file.type;
-
-        var output = document.getElementById('preview_img');
-
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-          URL.revokeObjectURL(output.src) // free memory
-        }
-      };
-    </script> --}}
-    
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     
     <script>
-      Dropzone.autoDiscover = false;
-          
-      const avatarDropzone = new Dropzone("#avatar-dropzone", {
-        url: "#", // no se usa
-        autoProcessQueue: false,
-        maxFiles: 1,
-        acceptedFiles: "image/*",
-        addRemoveLinks: true,
-        dictDefaultMessage: "Arrastra o haz clic para subir una imagen",
-        init: function() {
-          // Si $user->avatar es NULL, no carga nada
-          @if(isset($user) && $user->avatar)
-            const mockFile = { name: "Avatar actual", size: 12345, type: 'image/jpeg' };
-            this.displayExistingFile(mockFile, "{{ asset('storage/'.$user->avatar) }}");
-            this.files.push(mockFile);
-          @endif
-
-          this.on("addedfile", file => {
-            if (this.files.length > 1) {
-              this.removeFile(this.files[0]);
-            }
-          });
-        }
-      });
-
-      // Botón para quitar avatar
-      document.getElementById("remove-avatar-btn").addEventListener("click", function () {
-        avatarDropzone.removeAllFiles(true); // limpiar dropzone
-        // Marcar hidden input para el backend
-        let input = document.querySelector("input[name='remove_avatar']");
-        if (!input) {
-          input = document.createElement("input");
-          input.type = "hidden";
-          input.name = "remove_avatar";
-          input.value = "1";
-          document.getElementById("user-form").appendChild(input);
-        } else {
-            input.value = "1";
-        }
-      });
-
-      // Interceptar el submit
-      document.getElementById("user-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const form = this;
-        const formData = new FormData(form);
-
-        if (avatarDropzone.getAcceptedFiles().length) {
-          formData.append("avatar", avatarDropzone.getAcceptedFiles()[0]);
-        }
-
-        fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: {
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-          }
-        }).then(response => {
-          if (response.ok) {
-            window.location.href = "{{ route('users.index') }}";
-          }
-        });
-      });
-    </script>      
+    </script>
   @endpush
 </x-app-layout>
