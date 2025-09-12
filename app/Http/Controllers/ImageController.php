@@ -43,7 +43,8 @@ class ImageController extends Controller
     $thumbImage->cover(250, 250);
 
     // Guardar la imagen redimensionada en un directorio diferente
-    $response = $thumbImage->save(public_path('uploads/thumbnails/' . $imageName));
+    // $response = $thumbImage->save(public_path('uploads/thumbnails/' . $imageName));
+    $response = $thumbImage->save(public_path('thumbnails/' . $imageName));
 
     // Almacenar la información de la imagen en la base de datos
     if ($response) {
