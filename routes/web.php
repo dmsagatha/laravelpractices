@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +17,10 @@ Route::controller(ImageController::class)->group(function () {
   Route::get('/usuario/avatar', 'fileUpload')->name('image.fileUpload');
   Route::post('/usuario/avatar', 'storeImage')->name('image.store');
 })->middleware(['auth', 'verified']);
+
+Route::resource('usuarios', UserController::class)
+  ->parameters(['usuarios' => 'user'])
+  ->names('users');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
