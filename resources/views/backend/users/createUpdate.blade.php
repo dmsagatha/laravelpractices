@@ -52,23 +52,23 @@
         acceptedFiles: "image/*",
         dictDefaultMessage: "Arrastra o haz clic para seleccionar el avatar",
         init: function() {
-            this.on("addedfile", function(file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').src = e.target.result;
-                    document.getElementById('avatar-preview').classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
+          this.on("addedfile", function(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('avatar-preview').src = e.target.result;
+                document.getElementById('avatar-preview').classList.remove('hidden');
+            }
+            reader.readAsDataURL(file);
 
-                var dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                document.getElementById('avatar-input').files = dataTransfer.files;
-            });
-            this.on("removedfile", function() {
-                document.getElementById('avatar-preview').classList.add('hidden');
-                document.getElementById('avatar-preview').src = "#";
-                document.getElementById('avatar-input').value = "";
-            });
+            var dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            document.getElementById('avatar-input').files = dataTransfer.files;
+          });
+          this.on("removedfile", function() {
+            document.getElementById('avatar-preview').classList.add('hidden');
+            document.getElementById('avatar-preview').src = "#";
+            document.getElementById('avatar-input').value = "";
+          });
         }
       });
     </script>
