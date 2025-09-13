@@ -107,17 +107,6 @@ class UserController extends Controller
       // Guardar la ruta en la BD
       $data['avatar'] = $imagePath;
     }
-    // Quitar avatar si se marcó "remove_avatar"
-    elseif ($request->boolean('remove_avatar')) {
-      if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-        Storage::disk('public')->delete($user->avatar);
-      }
-      $data['avatar'] = null;
-    }
-    // Mantener avatar existente
-    else {
-      unset($data['avatar']);
-    }
 
     // Si no se envía la contraseña, no hay cambios
     if (!empty($data['password'])) {
@@ -125,52 +114,6 @@ class UserController extends Controller
     } else {
       unset($data['password']);
     }
-
-    // Quitar avatar sin subir uno nuevo
-    /* if ($request->boolean('remove_avatar')) {
-      if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-        Storage::disk('public')->delete($user->avatar);
-      }
-      $data['avatar'] = null;
-    }
-
-    // Subir nueva imagen
-    if ($request->hasFile('avatar')) {
-      // Obtener el archivo cargado
-      $imageFile = $request->file('avatar');
-
-      // Generar un nombre único para el archivo
-      $fileName = time() . '.' . $imageFile->getClientOriginalExtension();
-
-      // Intervention Image v3: Leer, procesar y exportar imágenes
-      $manager = new ImageManager(new Driver());
-      $image = $manager->read($imageFile);
-
-      // Redimensionar y exportar como JPG
-      $resized = $image->cover(300, 300)->toJpeg(80);
-
-      // Storage:Crear directorio, guardar y eliminar archivos el directorio si no existe
-      Storage::disk('public')->makeDirectory('avatars');
-
-      // Eliminar imagen anterior si existe
-      if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-        Storage::disk('public')->delete($user->avatar);
-      }
-
-      // Guardar la nueva imagen en storage/app/public/avatars
-      Storage::disk('public')->put("avatars/{$fileName}", $resized);
-
-      // Guardar la ruta en la BD
-      // $data['avatar'] = "avatars/{$fileName}";
-      $data['avatar'] = $imageFile->store('avatars', 'public');
-    }
-
-    // Si no se envía contraseña, no hay cambios
-    if (!empty($data['password'])) {
-      $data['password'] = Hash::make($data['password']);
-    } else {
-      unset($data['password']);
-    } */
 
     $response = $user->update($data);
 
