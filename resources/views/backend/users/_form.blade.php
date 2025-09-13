@@ -36,7 +36,7 @@
     <div id="avatar-dropzone" class="dropzone"></div>
     <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*">
     <img id="avatar-preview" src="#" alt="Avatar Preview" class="mt-2 hidden w-24 h-24 rounded object-cover"> --}}
-
+    
     <div id="avatar-dropzone" class="dropzone"></div>
     <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*">
   </div>
