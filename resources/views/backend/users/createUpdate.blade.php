@@ -44,7 +44,59 @@
 
     <script>
       Dropzone.autoDiscover = false;
-      var dropzone = new Dropzone("#avatar-dropzone", {
+
+      document.addEventListener("DOMContentLoaded", function() {
+        var preview = document.getElementById('avatar-preview');
+        var inputFile = document.getElementById('avatar-input');
+
+        var avatarDropzone = new Dropzone("#avatar-dropzone", {
+          url: "#", // No se sube por AJAX, se envía con el form
+          autoProcessQueue: false,
+          addRemoveLinks: true,
+          maxFiles: 1,
+          acceptedFiles: "image/*",
+          dictDefaultMessage: "Arrastrar o hacer clic para seleccionar el avatar",
+          init: function() {
+            this.on("addedfile", function(file) {
+              // Solo hacer FileReader si file es de tipo File (nuevo archivo)
+              if (file instanceof File) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                  preview.src = e.target.result;
+                  preview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+
+                var dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                inputFile.files = dataTransfer.files;
+              } else {
+                // Si es mock file, solo mostrar la imagen actual
+                preview.src = file.dataURL || file.url || preview.src;
+                preview.classList.remove('hidden');
+              }
+            });
+            this.on("removedfile", function() {
+              preview.classList.add('hidden');
+              preview.src = "#";
+              inputFile.value = "";
+            });
+
+            // Modo edición: muestra avatar actual
+            @if(isset($user) && $user->avatar)
+              var mockFile = { name: "avatar.jpg", size: 12345 };
+              this.emit("addedfile", mockFile);
+              this.emit("thumbnail", mockFile, "{{ asset('storage/'.$user->avatar) }}");
+              this.emit("complete", mockFile);
+              preview.src = "{{ asset('storage/'.$user->avatar) }}";
+              preview.classList.remove('hidden');
+            @endif
+          }
+        });
+      });      
+
+      /* Primera versión*/
+      /* var dropzone = new Dropzone("#avatar-dropzone", {
         url: "#",
         autoProcessQueue: false,
         addRemoveLinks: true,
@@ -70,7 +122,7 @@
             document.getElementById('avatar-input').value = "";
           });
         }
-      });
+      }); */
     </script>
   @endpush
 </x-app-layout>

@@ -71,6 +71,44 @@ class UserController extends Controller
     return view('backend.users.createUpdate', compact('user'));
   }
   
+  /* public function update(UserRequest $request, User $user)
+  {
+    $data = $request->validated();
+
+    $avatarPath = $user->avatar;
+    if ($request->hasFile('avatar')) {
+      // Borra el avatar anterior si existe
+      if ($user->avatar && file_exists(public_path($user->avatar))) {
+        unlink(public_path($user->avatar));
+      }
+      $imageFile = $request->file('avatar');
+      $filename = uniqid().'.'.$imageFile->getClientOriginalExtension();
+      $path = public_path('avatars/'.$filename);
+
+      $manager = new ImageManager(new Driver());
+      $image = $manager->read($imageFile);
+      $image->cover(300, 300);
+      $image->toJpeg()->save($path);
+
+      // $avatarPath = 'avatars/'.$filename;
+      $data['avatar'] = 'avatars/'.$filename;
+    }
+
+    // Si no se envía la contraseña, no hay cambios
+    if (!empty($data['password'])) {
+      $data['password'] = Hash::make($data['password']);
+    } else {
+      unset($data['password']);
+    }
+
+    $response = $user->update($data);
+
+    if ($response) {
+      return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente!');
+    }
+    return redirect()->back()->with('error', 'Error al actualizar el usuario');
+  } */
+  
   public function update(UserRequest $request, User $user)
   {
     $data = $request->validated();
