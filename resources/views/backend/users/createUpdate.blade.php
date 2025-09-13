@@ -49,7 +49,7 @@
         var inputFile = document.getElementById('avatar-input');
 
         var avatarDropzone = new Dropzone("#avatar-dropzone", {
-          url: "#",
+          url: "#", // No se sube por AJAX, se envía con el form
           autoProcessQueue: false,
           addRemoveLinks: true,
           maxFiles: 1,
@@ -60,9 +60,9 @@
             this.on("addedfile", function(file) {
               // Solo para archivos nuevos
               if (file instanceof File) {
-                  var dataTransfer = new DataTransfer();
-                  dataTransfer.items.add(file);
-                  inputFile.files = dataTransfer.files;
+                var dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                inputFile.files = dataTransfer.files;
               }
             });
             this.on("removedfile", function() {
