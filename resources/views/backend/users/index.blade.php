@@ -14,7 +14,7 @@
             <tr class="">
               <th class="p-2">Avatar</th>
               <th class="p-2">Nombre</th>
-              <th class="p-2">Email</th>
+              <th class="p-2">Correo electrónico</th>
               <th class="p-2">Acciones</th>
             </tr>
           </thead>
@@ -30,7 +30,7 @@
                   <a href="{{ route('users.edit',$user) }}" class="text-blue-500">Editar</a>
                   <form action="{{ route('users.destroy',$user) }}" method="POST" class="inline">
                     @csrf @method('DELETE')
-                    <button onclick="return confirm('¿Eliminar?')" class="text-red-500 ml-2">Eliminar</button>
+                    <button onclick="return confirm('¿Eliminar usuario?')" class="text-red-500 ml-2">Eliminar</button>
                   </form>
                 </td>
               </tr>
