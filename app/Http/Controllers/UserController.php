@@ -163,8 +163,8 @@ class UserController extends Controller
   
   public function destroy(User $user)
   {
-    if ($user->avatar && file_exists(public_path($user->avatar))) {
-      unlink(public_path($user->avatar));
+    if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+      Storage::disk('public')->delete($user->avatar);
     }
     $user->delete();
 

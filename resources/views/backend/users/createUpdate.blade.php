@@ -55,6 +55,7 @@
           maxFiles: 1,
           acceptedFiles: "image/*",
           dictDefaultMessage: "Suelte el archivo o haga clic para cargar",
+          dictRemoveFile: "Eliminar archivo", // <-- Traducción al español
           previewsContainer: "#avatar-dropzone", // importante, solo un área de preview
           init: function() {
             this.on("addedfile", function(file) {
