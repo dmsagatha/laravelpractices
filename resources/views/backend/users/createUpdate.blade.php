@@ -46,6 +46,44 @@
       Dropzone.autoDiscover = false;
 
       document.addEventListener("DOMContentLoaded", function() {
+        var inputFile = document.getElementById('avatar-input');
+
+        var avatarDropzone = new Dropzone("#avatar-dropzone", {
+          url: "#",
+          autoProcessQueue: false,
+          addRemoveLinks: true,
+          maxFiles: 1,
+          acceptedFiles: "image/*",
+          dictDefaultMessage: "Suelte el archivo o haga clic para cargar",
+          previewsContainer: "#avatar-dropzone", // importante, solo un área de preview
+          init: function() {
+            this.on("addedfile", function(file) {
+              // Solo para archivos nuevos
+              if (file instanceof File) {
+                  var dataTransfer = new DataTransfer();
+                  dataTransfer.items.add(file);
+                  inputFile.files = dataTransfer.files;
+              }
+            });
+            this.on("removedfile", function() {
+              inputFile.value = "";
+            });
+
+            // Modo edición: muestra avatar actual solo como mockFile
+            @if(isset($user) && $user->avatar)
+              this.removeAllFiles(true); // Limpia cualquier preview previa
+              var mockFile = { name: "Avatar", size: 12345 };
+              this.emit("addedfile", mockFile);
+              this.emit("thumbnail", mockFile, "{{ asset('storage/'.$user->avatar) }}");
+              this.emit("complete", mockFile);
+              this.files.push(mockFile); // Para que Dropzone lo cuente como existente
+            @endif
+          }
+        });
+      });
+
+      /* Segunda versión*/
+      /* document.addEventListener("DOMContentLoaded", function() {
         var preview = document.getElementById('avatar-preview');
         var inputFile = document.getElementById('avatar-input');
 
@@ -93,7 +131,7 @@
             @endif
           }
         });
-      });      
+      }); */
 
       /* Primera versión*/
       /* var dropzone = new Dropzone("#avatar-dropzone", {

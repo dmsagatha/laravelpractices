@@ -30,11 +30,14 @@
 <div class="form-group mb-4">
   <div class="mb-4">
     <label class="block font-medium mb-1">Avatar</label>
-    @if(isset($user) && $user->avatar)
+    {{-- @if(isset($user) && $user->avatar)
       <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-noavatar.png') }}" alt="Avatar" class="mb-2 w-24 h-24 rounded object-cover" />
     @endif
     <div id="avatar-dropzone" class="dropzone"></div>
     <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*">
-    <img id="avatar-preview" src="#" alt="Avatar Preview" class="mt-2 hidden w-24 h-24 rounded object-cover">
+    <img id="avatar-preview" src="#" alt="Avatar Preview" class="mt-2 hidden w-24 h-24 rounded object-cover"> --}}
+
+    <div id="avatar-dropzone" class="dropzone"></div>
+    <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*">
   </div>
 </div>
