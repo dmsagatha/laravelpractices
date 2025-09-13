@@ -124,5 +124,12 @@ class UserController extends Controller
   }
   
   public function destroy(User $user)
-  {}
+  {
+    if ($user->avatar && file_exists(public_path($user->avatar))) {
+      unlink(public_path($user->avatar));
+    }
+    $user->delete();
+
+    return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
+  }
 }
