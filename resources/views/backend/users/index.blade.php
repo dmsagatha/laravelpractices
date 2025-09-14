@@ -40,7 +40,12 @@
                   <form action="{{ route('users.destroy',$user) }}" method="POST" class="inline">
                     @csrf @method('DELETE')
                     {{-- <button onclick="return confirm('¿Eliminar usuario?')" class="text-red-500 ml-2">Eliminar</button> --}}
-                    <button type="button" onclick="window.dispatchEvent(new CustomEvent('open-delete-modal', { detail: { form: this.closest('form') } }))" class="btn-delete-user text-red-600 dark:text-red-400 ml-2">
+                    <button type="button" onclick="window.dispatchEvent(new CustomEvent('open-delete-modal', {
+                      detail: {
+                        form: this.closest('form'),
+                        title: 'Eliminar usuario',
+                        message: '¿Está seguro que desea eliminar a {{ $user->name }}? Esta acción no se puede deshacer.'
+                      } }))" class="btn-delete-user text-red-600 dark:text-red-400 ml-2">
                       <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
                   </form>
@@ -56,40 +61,5 @@
   </div>
 
   @push('scripts')
-    {{-- <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          let modal = document.getElementById('modal-confirm-delete');
-          let formToDelete = null;
-
-          // Asigna el evento a los botones de eliminar
-          document.querySelectorAll('.btn-delete-user').forEach(btn => {
-              btn.addEventListener('click', function(e) {
-                  e.preventDefault();
-                  formToDelete = btn.closest('form');
-                  modal.classList.remove('hidden');
-              });
-          });
-
-          // Cancelar
-          document.getElementById('btn-cancel-delete').addEventListener('click', function() {
-              modal.classList.add('hidden');
-              formToDelete = null;
-          });
-
-          // Confirmar eliminación
-          document.getElementById('btn-confirm-delete').addEventListener('click', function() {
-              if (formToDelete) formToDelete.submit();
-              modal.classList.add('hidden');
-          });
-
-          // Cerrar modal al hacer click fuera
-          modal.addEventListener('click', function(e) {
-              if (e.target === modal) {
-                  modal.classList.add('hidden');
-                  formToDelete = null;
-              }
-          });
-      });
-    </script> --}}
   @endpush
 </x-app-layout>

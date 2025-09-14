@@ -42,7 +42,8 @@
     </div>
 
     <x-toastify />
-    <x-forms.modal-confirm-delete>¿Realmente quieres eliminar este usuario?</x-forms.modal-confirm-delete>
+    <x-forms.modal-confirm-delete />
+    {{-- <x-forms.modal-confirm-delete>¿Realmente quieres eliminar este usuario?</x-forms.modal-confirm-delete> --}}
 
     <!-- Iconos Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
