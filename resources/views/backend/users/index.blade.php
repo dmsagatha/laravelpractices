@@ -8,10 +8,14 @@
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-slate-50 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
       <div class="p-6 text-gray-900 dark:text-gray-100">
-        <a href="{{ route('users.create') }}" class="bg-blue-500 text-slate-50 px-4 py-2 rounded">Nuevo Usuario</a>
+        <a href="{{ route('users.create') }}" class="relative inline-flex justify-end items-center p-2 mr-2 mb-2 text-blue-600 border border-blue-500 hover:bg-blue-500 hover:text-slate-50 active:bg-blue-600 font-medium rounded-lg outline-none focus:outline-none ease-linear transition-all duration-150">
+          <i data-lucide="plus-circle" class=" mr-1"></i>Nuevo Usuario
+        </a>
+
         <table class="w-full mt-6 border border-gray-300 dark:border-gray-600">
           <thead class="bg-gray-200 dark:bg-gray-900">
             <tr class="">
+              <th class="p-2">N°</th>
               <th class="p-2">Avatar</th>
               <th class="p-2">Nombre</th>
               <th class="p-2">Correo electrónico</th>
@@ -21,16 +25,24 @@
           <tbody>
             @foreach ($users as $user)
               <tr class="border-t border-gray-300 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                <td class="p-2">{{ $loop->index + 1 }}</td>
                 <td class="p-2">
                   <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="w-12 h-12 rounded-full object-cover" />
                 </td>
                 <td class="p-2">{{ $user->name }}</td>
                 <td class="p-2">{{ $user->email }}</td>
-                <td class="p-2">
-                  <a href="{{ route('users.edit',$user) }}" class="text-blue-500">Editar</a>
+                <td class="flex items-stretch justify-center py-5 space-x-2">
+                  <!-- Editar -->
+                  <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-800 dark:text-blue-400 dark:hover:text-slate-50">
+                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                  </a>
+                  <!-- Eliminar -->
                   <form action="{{ route('users.destroy',$user) }}" method="POST" class="inline">
                     @csrf @method('DELETE')
-                    <button onclick="return confirm('¿Eliminar usuario?')" class="text-red-500 ml-2">Eliminar</button>
+                    {{-- <button onclick="return confirm('¿Eliminar usuario?')" class="text-red-500 ml-2">Eliminar</button> --}}
+                    <button type="button" onclick="window.dispatchEvent(new CustomEvent('open-delete-modal', { detail: { form: this.closest('form') } }))" class="btn-delete-user text-red-600 dark:text-red-400 ml-2">
+                      <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
                   </form>
                 </td>
               </tr>
@@ -42,4 +54,42 @@
       </div>
     </div>
   </div>
+
+  @push('scripts')
+    {{-- <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          let modal = document.getElementById('modal-confirm-delete');
+          let formToDelete = null;
+
+          // Asigna el evento a los botones de eliminar
+          document.querySelectorAll('.btn-delete-user').forEach(btn => {
+              btn.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  formToDelete = btn.closest('form');
+                  modal.classList.remove('hidden');
+              });
+          });
+
+          // Cancelar
+          document.getElementById('btn-cancel-delete').addEventListener('click', function() {
+              modal.classList.add('hidden');
+              formToDelete = null;
+          });
+
+          // Confirmar eliminación
+          document.getElementById('btn-confirm-delete').addEventListener('click', function() {
+              if (formToDelete) formToDelete.submit();
+              modal.classList.add('hidden');
+          });
+
+          // Cerrar modal al hacer click fuera
+          modal.addEventListener('click', function(e) {
+              if (e.target === modal) {
+                  modal.classList.add('hidden');
+                  formToDelete = null;
+              }
+          });
+      });
+    </script> --}}
+  @endpush
 </x-app-layout>
