@@ -8,9 +8,8 @@
     'cancelText' => 'Cancelar',
 ])
 
-<div id="confirmDeleteModal-{{ $itemId }}"
-  class="fixed inset-0 bg-gray-600 bg-opacity-50 items-center justify-center hidden z-50">
-  <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-96 mx-4">
+<div id="confirmDeleteModal-{{ $itemId }}" class="fixed inset-0 bg-gray-600 bg-opacity-50 items-center justify-center hidden z-50">
+  <div class="bg-slate-50 dark:bg-gray-800 rounded-lg p-6 w-96 mx-4">
     <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
       {{ $title }}
     </h3>
@@ -28,35 +27,13 @@
       <form action="{{ $deleteRoute }}" method="POST" id="deleteForm-{{ $itemId }}">
         @csrf
         @method('DELETE')
-        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
+        <button type="submit" class="px-4 py-2 bg-red-600 text-slate-50 rounded hover:bg-red-700 transition-colors">
           {{ $confirmText }}
         </button>
       </form>
     </div>
   </div>
 </div>
-
-{{-- <script>
-  function showDeleteModal(itemId) {
-    document.getElementById(`confirmDeleteModal-${itemId}`).classList.remove('hidden');
-  }
-
-  function hideDeleteModal(itemId) {
-    document.getElementById(`confirmDeleteModal-${itemId}`).classList.add('hidden');
-  }
-
-  // Cerrar modal al hacer clic fuera
-  document.addEventListener('DOMContentLoaded', function() {
-    const modals = document.querySelectorAll('[id^="confirmDeleteModal-"]');
-    modals.forEach(modal => {
-      modal.addEventListener('click', function(e) {
-        if (e.target === this) {
-          this.classList.add('hidden');
-        }
-      });
-    });
-  });
-</script> --}}
 
 
 
@@ -68,14 +45,14 @@
   class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 dark:bg-black/50"
   style="display: none;"
 >
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-sm mx-4 p-6" @click.away="open = false; form = null;">
+  <div class="bg-slate-50 dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-sm mx-4 p-6" @click.away="open = false; form = null;">
     <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{{ $title ?? '¿Estás seguro?' }}</h2>
     <p class="text-gray-700 dark:text-gray-300 mb-6">{{ $slot ?? '¿Deseas eliminar este registro? Esta acción no se puede deshacer.' }}</p>
     <div class="flex justify-end gap-2">
       <button type="button" class="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100" @click="open = false; form = null;">
         Cancelar
       </button>
-      <button type="button" class="px-4 py-2 rounded bg-red-600 dark:bg-red-500 text-white" @click="if(form) form.submit(); open = false; form = null;">
+      <button type="button" class="px-4 py-2 rounded bg-red-600 dark:bg-red-500 text-slate-50" @click="if(form) form.submit(); open = false; form = null;">
         Eliminar
       </button>
     </div>
