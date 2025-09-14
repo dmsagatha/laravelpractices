@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManager;
@@ -14,7 +15,8 @@ class UserController extends Controller
 {
   public function index()
   {
-    $users = User::latest()->paginate(10);
+    // $users = User::latest()->paginate(10);
+    $users = User::orderBy('name')->paginate(10);
     return view('backend.users.index', compact('users'));
   }
   
@@ -119,6 +121,11 @@ class UserController extends Controller
   
   public function destroy(User $user)
   {
+    // Opcional: Prevenir auto-eliminación
+    if ($user->id === Auth::id()) {     // auth()->id()
+      return redirect()->route('users.index')->with('error', 'No puedes eliminar tu propio usuario.');
+    }
+
     if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
       Storage::disk('public')->delete($user->avatar);
     }

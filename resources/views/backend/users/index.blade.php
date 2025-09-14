@@ -69,18 +69,12 @@
                     <i data-lucide="pencil" class="w-4 h-4"></i>
                   </a>
                   <!-- Eliminar -->
-                  <form action="{{ route('users.destroy',$user) }}" method="POST" class="inline">
-                    @csrf @method('DELETE')
-                    {{-- <button onclick="return confirm('¿Eliminar usuario?')" class="text-red-500 ml-2">Eliminar</button> --}}
-                    <button type="button" onclick="window.dispatchEvent(new CustomEvent('open-delete-modal', {
-                      detail: {
-                        form: this.closest('form'),
-                        title: 'Eliminar usuario',
-                        message: '¿Está seguro que desea eliminar a {{ $user->name }}? Esta acción no se puede deshacer.'
-                      } }))" class="btn-delete-user text-red-600 dark:text-red-400 ml-2">
-                      <i data-lucide="trash-2" class="w-4 h-4"></i>
-                    </button>
-                  </form>
+                  <x-forms.button-delete
+                      :itemId="$user->id"
+                      :itemName="$user->name"
+                      :deleteRoute="route('users.destroy', $user)"
+                      buttonText="Eliminar"
+                  />
                 </td>
               </tr>
             @endforeach
@@ -91,7 +85,11 @@
       </div>
     </div>
   </div>
+</div>
 
   @push('scripts')
   @endpush
+
+  <!-- Renderizar todos los modales -->
+  @stack('modals')
 </x-app-layout>

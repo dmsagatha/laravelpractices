@@ -42,15 +42,16 @@
     </div>
 
     <x-toastify />
-    <x-forms.modal-confirm-delete />
-    {{-- <x-forms.modal-confirm-delete>¿Realmente quieres eliminar este usuario?</x-forms.modal-confirm-delete> --}}
+
+    @stack('scripts')
+    @stack('modals')
 
     <!-- Iconos Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();
     </script>
-
-    @stack('scripts')
+    
+    <script src="{{ asset('js/modal-delete.js') }}"></script>
   </body>
 </html>
