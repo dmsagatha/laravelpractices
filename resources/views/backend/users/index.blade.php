@@ -97,7 +97,7 @@
   </div>
 
   <!-- Modal https://www.youtube.com/watch?v=sj2BgOKUE9M -->
-  <div class="absolute top-0 left-0 w-screen bg-zinc-700">
+  {{-- <div class="absolute top-0 left-0 w-screen bg-zinc-700">
     <div>
       <h1>Mi asombroso Modal</h1>
       <div></div>
@@ -106,7 +106,7 @@
       </p>
     </div>
   </div>
-</div>
+</div> --}}
 
 
   @push('scripts')
