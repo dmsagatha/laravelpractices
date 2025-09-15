@@ -12,6 +12,15 @@
           <i data-lucide="plus-circle" class=" mr-1"></i>Nuevo Usuario
         </a>
 
+        <div class="w-screen bg-zinc-300 flex flex-col justify-center items-center">
+          <div class="container w-9/12 bg-slate-50 px-4 py-10 m-5 rounded-lg">
+            <h1 class="text-3xl my-3">Mi Modal con Tailwind CSS 4</h1>
+            <P>
+              Itaque ullam eos hic ab veritatis, quam maiores, enim corporis quia illo qui sequi libero placeat, recusandae officia! Impedit et fugiat doloribus.
+            </P>
+          </div>
+        </div>
+
         <div class="flex gap-5 justify-center">
           <div x-data="{ showModal: false }" x-on:keydown.window.escape="showModal = false">
             <div class="flex justify-center">
