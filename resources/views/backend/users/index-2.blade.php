@@ -1,0 +1,322 @@
+<x-app-layout>
+  {{-- <x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+      {{ __('Users') }}
+    </h2>
+  </x-slot> --}}
+
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="bg-slate-50 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+      <div class="p-6 text-gray-900 dark:text-gray-100">
+
+        <div class="text-center text-slate-800 mx-4 md:mx-8 lg:mx-20">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate__animated animate__fadeInDown">
+            Welcome to GeeksforGeeks
+          </h1>
+          <p class="text-base md:text-lg lg:text-xl mb-6 animate__animated animate__fadeInDown">
+            Your go-to platform for learning and exploring the world of technology and programming.
+          </p>
+          <button id="loginBtn" class="bg-white text-purple-500 py-2 px-6 rounded-full font-bold text-lg hover:underline focus:outline-none focus:shadow-outline transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp">
+            Login
+          </button>
+        </div>
+        <div id="loginModal" class="hidden fixed top-0 left-0 w-full 
+            h-full bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 w-full 
+                max-w-md animate__animated animate__fadeIn">
+                <div class="flex justify-end">
+                    <button id="closeBtn" class="text-gray-800 text-xl">
+                        &times;
+                    </button>
+                </div>
+                <h2 class="text-xl md:text-2xl lg:text-3xl 
+                    font-bold mb-4 text-center text-gray-800">
+                    Login
+                </h2>
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-gray-700 text-sm 
+                            md:text-base lg:text-lg font-bold mb-2">
+                            Username
+                        </label>
+                        <input class="appearance-none border rounded 
+                            w-full py-2 px-3 leading-tight focus:outline-none 
+                            focus:shadow-outline"
+                            id="username" type="text" 
+                            placeholder="Enter your username">
+                        <p id="usernameError" class="text-red-500 text-sm"></p>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm md:text-base 
+                            lg:text-lg font-bold mb-2" for="password">
+                            Password
+                        </label>
+                        <div class="relative">
+                            <input class="appearance-none border rounded w-full 
+                                py-2 px-3 leading-tight focus:outline-none 
+                                focus:shadow-outline"
+                                id="password" type="password" 
+                                placeholder="Enter your password">
+                            <button id="togglePassword" class="absolute top-0 right-0 
+                                mt-3 mr-4 text-gray-700 cursor-pointer 
+                                focus:outline-none"
+                                type="button">
+                                <i id="eyeIcon" class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <p id="passwordError" class="text-red-500 text-sm"></p>
+                    </div>
+                    <button type="button" id="loginSubmit" class="bg-gradient-to-r 
+                        from-pink-500 to-purple-500 text-white py-2 px-4 
+                        rounded-full focus:outline-none focus:shadow-outline 
+                        transform hover:scale-105 transition duration-300">
+                        Login
+                    </button>
+                </form>
+                <div class="text-center mt-4">
+                    <a href="#" id="forgotPasswordLink" 
+                       class="text-purple-500 text-sm 
+                        md:text-base lg:text-lg font-bold hover:underline">
+                        Forgot your password?
+                    </a>
+                    <p id="forgotPasswordError" class="text-red-500 text-sm"></p>
+                </div>
+            </div>
+        </div>
+        <div id="forgotPasswordModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <div class="bg-white rounded-lg p-8 w-full max-w-md 
+              animate__animated animate__fadeIn">
+              <div class="flex justify-end">
+                  <button id="closeForgotPasswordBtn" 
+                          class="text-gray-800 text-xl">
+                      &times;
+                  </button>
+              </div>
+              <h2 class="text-xl md:text-2xl lg:text-3xl font-bold 
+                  mb-4 text-center text-gray-800">
+                  Forgot Password
+              </h2>
+              <form id="forgotPasswordForm" class="space-y-4">
+                  <div>
+                      <label class="block text-gray-700 text-sm md:text-base 
+                          lg:text-lg font-bold mb-2" for="email">
+                          Email
+                      </label>
+                      <input
+                          class="appearance-none border rounded w-full 
+                          py-2 px-3 leading-tight focus:outline-none 
+                          focus:shadow-outline" id="email" 
+                          type="email" placeholder="Enter your email">
+                      <p id="emailError" class="text-red-500 text-sm"></p>
+                  </div>
+                  <button type="button" id="forgotPasswordSubmit"
+                      class="bg-gradient-to-r from-pink-500 to-purple-500 
+                      text-white py-2 px-4 rounded-full focus:outline-none 
+                      focus:shadow-outline transform hover:scale-105 
+                      transition duration-300">
+                      Submit
+                  </button>
+              </form>
+          </div>
+        </div>
+
+
+        <a href="{{ route('users.create') }}" class="relative inline-flex justify-end items-center p-2 mr-2 mb-2 text-blue-600 border border-blue-500 hover:bg-blue-500 hover:text-slate-50 active:bg-blue-600 font-medium rounded-lg outline-none focus:outline-none ease-linear transition-all duration-150">
+          <i data-lucide="plus-circle" class=" mr-1"></i>Nuevo Usuario
+        </a>
+
+        {{-- <div class="w-screen bg-zinc-300 flex flex-col justify-center items-center text-center">
+          <div class="container w-9/12 bg-slate-50 px-4 py-5 m-5 rounded-lg">
+            <h1 class="text-3xl my-3">Mi Modal con Tailwind CSS 4</h1>
+            <P>
+              Itaque ullam eos hic ab veritatis, quam maiores, enim corporis quia illo qui sequi libero placeat, recusandae officia! Impedit et fugiat doloribus.
+            </P>
+            <button type="button" class="bg-orange-400 text-slate-50 text-lg px-2 py-1 rounded-md">Abrir Modal</button>
+          </div>
+        </div> --}}
+
+        <div class="flex gap-5 justify-center">
+          <div x-data="{ showModal: false }" x-on:keydown.window.escape="showModal = false">
+            <div class="flex justify-center">
+              <button x-on:click="showModal = !showModal" class="rounded-lg border border-red-500 bg-red-500 px-5 py-2.5 text-center text-sm font-medium text-slate-50 shadow-sm transition-all hover:border-red-700 hover:bg-red-700 focus:ring focus:ring-red-200 disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300">Error Modal</button>
+            </div>
+            <div x-cloak x-show="showModal" x-transition.opacity class="fixed inset-0 z-10 bg-secondary-700/50"></div>
+            <div x-cloak x-show="showModal" x-transition class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0">
+              <div class="mx-auto w-full overflow-hidden rounded-lg bg-slate-50 shadow-xl sm:max-w-sm">
+                <div class="relative p-5">
+                  <div class="text-center">
+                    <div class="mx-auto mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-red-100 text-red-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-medium text-secondary-900">Delete blog post</h3>
+                      <div class="mt-2 text-sm text-secondary-500">Are you sure you want to delete this post? This action cannot be undone.</div>
+                    </div>
+                  </div>
+                  <div class="mt-5 flex justify-end gap-3">
+                    <button type="button" x-on:click="showModal = false" class="flex-1 rounded-lg border border-gray-300 bg-slate-50 px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400">Cancel</button>
+                    <button type="button" class="flex-1 rounded-lg border border-red-500 bg-red-500 px-4 py-2 text-center text-sm font-medium text-slate-50 shadow-sm transition-all hover:border-red-700 hover:bg-red-700 focus:ring focus:ring-red-200 disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <table class="w-full mt-6 border border-gray-300 dark:border-gray-600">
+          <thead class="bg-gray-200 dark:bg-gray-900">
+            <tr class="">
+              <th class="p-2">N°</th>
+              <th class="p-2">Avatar</th>
+              <th class="p-2">Nombre</th>
+              <th class="p-2">Correo electrónico</th>
+              <th class="p-2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($users as $user)
+              <tr class="border-t border-gray-300 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-slate-700">
+                <td class="p-2">{{ $loop->index + 1 }}</td>
+                <td class="p-2">
+                  <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="w-12 h-12 rounded-full object-cover" />
+                </td>
+                <td class="p-2">{{ $user->name }}</td>
+                <td class="p-2">{{ $user->email }}</td>
+                <td class="flex items-stretch justify-center py-5 space-x-2">
+                  <!-- Editar -->
+                  <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-800 dark:text-blue-400 dark:hover:text-slate-50">
+                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                  </a>
+                  <!-- Eliminar -->
+                  <x-forms.button-delete
+                      :itemId="$user->id"
+                      :itemName="$user->name"
+                      :deleteRoute="route('users.destroy', $user)"
+                      buttonText="Eliminar"
+                  />
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+        {{ $users->links() }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal https://www.youtube.com/watch?v=sj2BgOKUE9M -->
+  {{-- <div class="absolute top-0 left-0 w-screen bg-zinc-700">
+    <div>
+      <h1>Mi asombroso Modal</h1>
+      <div></div>
+      <h2>Lorem ipsum dolor sit amet.</h2>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem, ipsa?
+      </p>
+    </div>
+  </div>
+</div> --}}
+
+
+  @push('scripts')
+    <script>
+      document.getElementById('loginBtn').
+          addEventListener('click', function () {
+              document.getElementById('loginModal').
+                  classList.remove('hidden');
+          });
+      document.getElementById('closeBtn').
+          addEventListener('click', function () {
+              document.getElementById('loginModal').
+                  classList.add('hidden');
+          });
+      document.getElementById('togglePassword').
+          addEventListener('click', function (event) {
+              event.preventDefault();
+              let passwordInput =
+                  document.getElementById('password');
+              let eyeIcon =
+                  document.getElementById('eyeIcon');
+
+              if (passwordInput.type === 'password') {
+                  passwordInput.type = 'text';
+                  eyeIcon.classList.remove('fa-eye');
+                  eyeIcon.classList.add('fa-eye-slash');
+              } else {
+                  passwordInput.type = 'password';
+                  eyeIcon.classList.remove('fa-eye-slash');
+                  eyeIcon.classList.add('fa-eye');
+              }
+          });
+      document.getElementById('loginSubmit').
+          addEventListener('click', function (event) {
+              event.preventDefault();
+              let username =
+                  document.getElementById('username').value;
+              let password =
+                  document.getElementById('password').value;
+              document.getElementById('usernameError').innerText = '';
+              document.getElementById('passwordError').innerText = '';
+              document.getElementById('forgotPasswordError').innerText = '';
+              if (username.trim() === '') {
+                  document.getElementById('usernameError').
+                      innerText = 'Username cannot be empty';
+                  return;
+              }
+              if (password.trim() === '') {
+                  document.getElementById('passwordError').
+                      innerText = 'Password cannot be empty';
+                  return;
+              }
+              else if (password.length < 8) {
+                  document.getElementById('passwordError').
+                      innerText = 'Password must be at least 8 characters long';
+                  return;
+              }
+              else if (!/[0-9]/.test(password) ||
+                  !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                  document.getElementById('passwordError').
+                      innerText = 'Password must contain at least one' +
+                      'numeric digit and one special character';
+                  return;
+              }
+              alert('Form submitted!');
+          });
+      document.getElementById('forgotPasswordLink').
+          addEventListener('click', function () {
+              document.getElementById('forgotPasswordModal').
+                  classList.remove('hidden');
+          });
+      document.getElementById('closeForgotPasswordBtn').
+          addEventListener('click', function () {
+              document.getElementById('forgotPasswordModal').
+                  classList.add('hidden');
+          });
+      document.getElementById('forgotPasswordSubmit').
+          addEventListener('click', function (event) {
+              event.preventDefault();
+              let email = document.getElementById('email').value;
+              document.getElementById('emailError').innerText = '';
+              if (email.trim() === '' || !isValidEmail(email)) {
+                  document.getElementById('emailError').
+                      innerText = 'Please enter a valid email address';
+                  return;
+              }
+              alert('Reset Link Sent Successfully!');
+              document.getElementById('forgotPasswordModal').
+                  classList.add('hidden');
+          });
+      function isValidEmail(email) {
+          let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+      }
+    </script>
+  @endpush
+
+  <!-- Renderizar todos los modales -->
+  @stack('modals')
+</x-app-layout>

@@ -7,29 +7,6 @@
 
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-slate-50 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-      <!-- Modal -->
-      <div id="modal" class="fixed hidden inset-0 z-50 justify-center items-center bg-slate-400 opacity-75">
-        <div class="flex justify-center items-center h-full w-full">
-          <div class="bg-slate-50 rounded-lg p-8 w-1/2 fade-in modal-content">
-            <div class="mb-4">
-              <h2 class="text-xl font-bold">Título del Modal</h2>
-            </div>
-            <div>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit, pariatur dolorem porro sapiente illum iste in iusto odit a praesentium, vel ipsum cum. Quod soluta, inventore quidem ducimus rerum expedita.</p>
-            </div>
-            <div class="mt-5">
-              <button id="closeModal" class="bg-red-500 text-slate-50 px-4 py-2 rounded font-bold">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex justify-center items-center">
-        <button id="openModal" class="bg-blue-500 text-slate-50 px-4 py-2 rounded font-bold">Abril Modal</button>
-      </div>
-
-
-
       <div class="p-6 text-gray-900 dark:text-gray-100">
         <a href="{{ route('users.create') }}" class="relative inline-flex justify-end items-center p-2 mr-2 mb-2 text-blue-600 border border-blue-500 hover:bg-blue-500 hover:text-slate-50 active:bg-blue-600 font-medium rounded-lg outline-none focus:outline-none ease-linear transition-all duration-150">
           <i data-lucide="plus-circle" class=" mr-1"></i>Nuevo Usuario
@@ -131,35 +108,8 @@
   </div>
 </div> --}}
 
-  @push('styles')
-    <style>
-      @keyframes fadeIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-      }
-
-      .fade-in {
-        animation: fadeIn 0.2s ease-out forwards;
-      }
-    </style>
-  @endpush
 
   @push('scripts')
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const modal = document.getElementById('modal');
-        const openModalBtn = document.getElementById('openModal');
-        const closeModalBtn = document.getElementById('closeModal');
-
-        openModalBtn.addEventListener('click', () => {
-          modal.classList.remove('hidden');
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-          modal.classList.add('hidden');
-        });
-      });
-    </script>
   @endpush
 
   <!-- Renderizar todos los modales -->
