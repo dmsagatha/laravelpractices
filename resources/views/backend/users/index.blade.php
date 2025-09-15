@@ -12,14 +12,15 @@
           <i data-lucide="plus-circle" class=" mr-1"></i>Nuevo Usuario
         </a>
 
-        <div class="w-screen bg-zinc-300 flex flex-col justify-center items-center">
-          <div class="container w-9/12 bg-slate-50 px-4 py-10 m-5 rounded-lg">
+        {{-- <div class="w-screen bg-zinc-300 flex flex-col justify-center items-center text-center">
+          <div class="container w-9/12 bg-slate-50 px-4 py-5 m-5 rounded-lg">
             <h1 class="text-3xl my-3">Mi Modal con Tailwind CSS 4</h1>
             <P>
               Itaque ullam eos hic ab veritatis, quam maiores, enim corporis quia illo qui sequi libero placeat, recusandae officia! Impedit et fugiat doloribus.
             </P>
+            <button type="button" class="bg-orange-400 text-slate-50 text-lg px-2 py-1 rounded-md">Abrir Modal</button>
           </div>
-        </div>
+        </div> --}}
 
         <div class="flex gap-5 justify-center">
           <div x-data="{ showModal: false }" x-on:keydown.window.escape="showModal = false">
@@ -94,7 +95,19 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal https://www.youtube.com/watch?v=sj2BgOKUE9M -->
+  <div class="absolute top-0 left-0 w-screen bg-zinc-700">
+    <div>
+      <h1>Mi asombroso Modal</h1>
+      <div></div>
+      <h2>Lorem ipsum dolor sit amet.</h2>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem, ipsa?
+      </p>
+    </div>
+  </div>
 </div>
+
 
   @push('scripts')
   @endpush
