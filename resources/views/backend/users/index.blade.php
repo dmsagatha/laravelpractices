@@ -30,7 +30,7 @@
                 </td>
                 <td class="p-2">{{ $user->name }}</td>
                 <td class="p-2">{{ $user->email }}</td>
-                <td class="flex items-stretch justify-center py-5 space-x-2">
+                <td class="flex items-center justify-center text-center py-5 gap-4">
                   <!-- Editar -->
                   <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-800 dark:text-blue-400 dark:hover:text-slate-50">
                     <i data-lucide="pencil" class="w-4 h-4"></i>

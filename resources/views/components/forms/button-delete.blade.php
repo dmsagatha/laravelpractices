@@ -3,18 +3,16 @@
     'itemName' => '',
     'deleteRoute' => '',
     'buttonText' => 'Eliminar',
-    'buttonClass' => 'px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors',
+    'buttonClass' => 'w-11 h-11 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-500',
     'modalTitle' => 'Confirmar Eliminación',
     'modalMessage' => '¿Estás seguro de que deseas eliminar a :name?',
     'confirmText' => 'Eliminar',
     'cancelText' => 'Cancelar'
 ])
 
-<button type="button" onclick="showDeleteModal('{{ $itemId }}')" class="{{ $buttonClass }}">
-  {{ $buttonText }}
+<button type='button' onclick="showDeleteModal('{{ $itemId }}')" class={{ $buttonClass }}' title="{{ $buttonText }}">
+  <i data-lucide="trash-2" class="w-4 h-4 text-red-600 hover:text-red-800 dark:hover:text-red-400"></i>
 </button>
-{{-- <button type="button" onclick="showDeleteModal('{{ $itemId }}')" class="{{ $buttonClass }}" title="{{ $buttonText }}"><i data-lucide="trash-2" class="w-4 h-4"></i>
-</button> --}}
 
 
 @push('modals')

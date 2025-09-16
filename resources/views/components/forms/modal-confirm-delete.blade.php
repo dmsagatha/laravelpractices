@@ -22,7 +22,7 @@
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
             <h3 class="text-base font-semibold text-gray-900 dark:text-slate-50">{{ $title }}</h3>
             <div class="mt-2">
-              <p class="text-sm text-gray-500 dark:text-gray-400">
+              <p class="text-base text-gray-500 dark:text-gray-400">
                 {!! str_replace(':name', '<span class="font-medium">' . e($itemName) . '</span>', $message) !!}
               </p>
             </div>
@@ -30,18 +30,18 @@
         </div>
       </div>
       <div class="bg-gray-50 dark:bg-gray-700/25 px-4 py-3 sm:flex sm:flex-row-reverse gap-4">
-        <button type="button" onclick="hideDeleteModal('{{ $itemId }}')"
-          class="inline-flex w-full justify-center rounded-md bg-slate-50 dark:bg-slate-50/10 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-slate-50 shadow-xs inset-ring inset-ring-gray-300 dark:inset-ring-slate-50/5 hover:bg-gray-50 dark:hover:bg-slate-50/20 sm:mt-0 sm:w-auto">
-          {{ $cancelText }}
-        </button>
-
         <form action="{{ $deleteRoute }}" method="POST" id="deleteForm-{{ $itemId }}">
           @csrf
           @method('DELETE')
-          <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 dark:bg-red-500 px-3 py-2 text-sm font-semibold text-slate-50 shadow-xs hover:bg-red-500 dark:hover:bg-red-400 sm:ml-3 sm:w-auto">
+          <button type="submit" class="inline-flex w-full justify-center rounded-md px-3 py-2 bg-red-600 dark:bg-red-500 text-sm font-semibold text-slate-50 shadow-xs hover:bg-red-500 dark:hover:bg-red-400 sm:ml-3 sm:w-auto">
             {{ $confirmText }}
           </button>
         </form>
+
+        <button type="button" onclick="hideDeleteModal('{{ $itemId }}')"
+          class="inline-flex w-full justify-center rounded-md px-3 py-2 bg-slate-50 dark:bg-slate-50/10 text-sm font-semibold text-gray-900 dark:text-slate-50 shadow-xs inset-ring inset-ring-gray-300 dark:inset-ring-slate-50/5 hover:bg-gray-50 dark:hover:bg-slate-50/20 sm:mt-0 sm:w-auto">
+          {{ $cancelText }}
+        </button>
       </div>
     </div>
   </div>
