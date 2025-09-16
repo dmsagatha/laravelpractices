@@ -40,9 +40,8 @@
                     <i data-lucide="pencil" class="h-4 w-4"></i>
                   </a>
                   <!-- Eliminar -->
-                  <x-forms.button-delete :itemId="$user->id" :itemName="$user->name" :deleteRoute="route('users.destroy', $user)" buttonText="Eliminar" />
-                  <button onclick="openDeleteModal('delete-user', 'usuarios', {{ $user->id }}, 'el usuario {{ $user->name }}')" class="px-3 py-1 bg-red-600 text-white rounded-md">
-                    Eliminar
+                  <button onclick="openDeleteModal('delete-user', 'usuarios', {{ $user->id }}, 'el usuario {{ $user->name }}')">
+                    <i data-lucide="trash-2" class="w-4 h-4 text-red-600 hover:text-red-800 dark:hover:text-red-400"></i>
                   </button>
                 </td>
               </tr>
@@ -83,7 +82,7 @@
         document.getElementById(modalId).classList.add('flex');
 
         // Cerrar modal al hacer clic en el fondo oscuro
-        document.getElementById("deleteModal").addEventListener("click", function(e) {
+        document.getElementById(modalId).addEventListener("click", function(e) {
           if (e.target === this) {
             closeModal();
           }
