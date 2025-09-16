@@ -54,54 +54,66 @@
     </div>
   </div>
 
-
-
-<!-- Modal genérico -->
-<x-forms.modal-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
-
   <!-- Modal reutilizable -->
-  {{-- <x-forms.modal-confirm-delete id="delete-user" 
-      title="Eliminar Usuario"
-      message="¿Seguro que deseas eliminar este usuario?"
-      route-base="usuarios"
-      confirm-text="Sí, eliminar"
-      cancel-text="Cancelar" /> --}}
+
+
+  <!-- Modal genérico para eliminación -->
+  <div id="delete-user-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg w-full max-w-md p-6">
+      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Confirmar eliminación</h2>
+      <p id="delete-user-message" class="text-sm text-slate-600 dark:text-slate-300 mb-6"></p>
+
+      <div class="flex justify-end gap-3">
+        <button type="button"
+          onclick="closeDeleteModal('delete-user')"
+          class="px-4 py-2 bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-100 rounded-md hover:bg-slate-300 dark:hover:bg-slate-500">
+          Cancelar
+        </button>
+
+        <!-- Modal -->
+        <form method="POST" id="delete-user-form">
+          @csrf
+          @method('DELETE')
+          <button type="submit"
+            class="inline-flex w-full justify-center rounded-md px-3 py-2 bg-red-600 dark:bg-red-500 text-sm font-semibold text-slate-50 shadow-xs hover:bg-red-500 dark:hover:bg-red-400 sm:w-auto">
+            Sí, eliminar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   @push('scripts')
-  <script>
-    function openDeleteModal(id, resource, itemId, itemName) {
-      const modal = document.getElementById(`${id}-modal`);
-      const message = document.getElementById(`${id}-message`);
-      const form = document.getElementById(`${id}-form`);
+    <script>
+      function openDeleteModal(id, resource, itemId, itemName) {
+        const modal = document.getElementById(`${id}-modal`);
+        const message = document.getElementById(`${id}-message`);
+        const form = document.getElementById(`${id}-form`);
 
-      // Mensaje dinámico
-      message.textContent = `¿Seguro que deseas eliminar ${itemName}?`;
+        // Mensaje dinámico
+        message.textContent = `¿Seguro que deseas eliminar ${itemName}?`;
 
-      // Acción dinámica del form
-      form.action = `/${resource}/${itemId}`;
+        // Acción del form
+        form.action = `/${resource}/${itemId}`;
 
-      // Mostrar modal
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+        // Mostrar modal
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
 
-    function closeDeleteModal(id) {
-      const modal = document.getElementById(`${id}-modal`);
-      modal.classList.remove('flex');
-      modal.classList.add('hidden');
-    }
+      function closeDeleteModal(id) {
+        const modal = document.getElementById(`${id}-modal`);
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
 
-    // Cerrar modal clicando fuera del contenido
-    document.addEventListener('click', function(e) {
-      document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+      // Cerrar modal al hacer clic fuera del contenido
+      document.addEventListener('click', function(e) {
+        const modal = document.getElementById('delete-user-modal');
         if (!modal.classList.contains('hidden') && e.target === modal) {
-          closeDeleteModal(modal.id.replace('-modal', ''));
+          closeDeleteModal('delete-user');
         }
       });
-    });
-  </script>
+    </script>
   @endpush
-
-  <!-- Renderizar todos los modales -->
-  {{-- @stack('modals') --}}
 </x-app-layout>
