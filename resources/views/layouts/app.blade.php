@@ -43,9 +43,6 @@
 
     <x-toastify />
 
-    @stack('scripts')
-    @stack('modals')
-
     <!-- Iconos Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -53,5 +50,8 @@
     </script>
     
     <script src="{{ asset('js/modal-delete.js') }}"></script>
+
+    @stack('scripts')
+    @stack('modals')
   </body>
 </html>

@@ -1,34 +1,30 @@
-function showDeleteModal(itemId) {
-  const modal = document.getElementById(`confirmDeleteModal-${itemId}`);
-  if (modal) {
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
+function openDeleteModal(id, resource, itemId, itemName) {
+  const modal = document.getElementById(`${id}-modal`);
+  const message = document.getElementById(`${id}-message`);
+  const form = document.getElementById(`${id}-form`);
+
+  // Mensaje dinámico
+  message.textContent = `¿Seguro que deseas eliminar ${itemName}?`;
+
+  // Acción dinámica del form
+  form.action = `/${resource}/${itemId}`;
+
+  // Mostrar modal
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
 }
 
-function hideDeleteModal(itemId) {
-  const modal = document.getElementById(`confirmDeleteModal-${itemId}`);
-  if (modal) {
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-  }
+function closeDeleteModal(id) {
+  const modal = document.getElementById(`${id}-modal`);
+  modal.classList.remove('flex');
+  modal.classList.add('hidden');
 }
 
-// Cerrar modal con ESC
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape') {
-    const openModals = document.querySelectorAll('[id^="confirmDeleteModal-"]:not(.hidden)');
-    openModals.forEach(modal => {
-      const itemId = modal.id.replace('confirmDeleteModal-', '');
-      hideDeleteModal(itemId);
-    });
-  }
-});
-
-// Cerrar al hacer clic fuera
-document.addEventListener('click', function (e) {
-  if (e.target.matches('[id^="confirmDeleteModal-"]')) {
-    const itemId = e.target.id.replace('confirmDeleteModal-', '');
-    hideDeleteModal(itemId);
-  }
+// Cerrar modal clicando fuera del contenido
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('[id$="-modal"]').forEach(modal => {
+    if (!modal.classList.contains('hidden') && e.target === modal) {
+      closeDeleteModal(modal.id.replace('-modal', ''));
+    }
+  });
 });

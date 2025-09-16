@@ -54,10 +54,8 @@
     </div>
   </div>
 
-
-
-<!-- Modal genérico -->
-<x-forms.modal-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
+  <!-- Modal -->
+  <x-forms.modal-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
 
   <!-- Modal reutilizable -->
   {{-- <x-forms.modal-confirm-delete id="delete-user" 
@@ -68,7 +66,7 @@
       cancel-text="Cancelar" /> --}}
 
   @push('scripts')
-    <script>
+    {{-- <script>
       function openDeleteModal(id, resource, itemId, itemName) {
         const modal = document.getElementById(`${id}-modal`);
         const message = document.getElementById(`${id}-message`);
@@ -99,7 +97,7 @@
           }
         });
       });
-    </script>
+    </script> --}}
   @endpush
 
   <!-- Renderizar todos los modales -->
