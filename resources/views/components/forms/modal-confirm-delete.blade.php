@@ -3,7 +3,7 @@
     'itemName' => '',
     'deleteRoute' => '',
     'title' => 'Confirmar Eliminación',
-    'message' => '¿Estás seguro de que deseas eliminar este elemento?',
+    'message' => '¿Estás seguro de eliminar este elemento?',
     'confirmText' => 'Eliminar',
     'cancelText' => 'Cancelar',
 ])

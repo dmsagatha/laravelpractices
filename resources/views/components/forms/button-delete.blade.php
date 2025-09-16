@@ -5,7 +5,7 @@
     'buttonText' => 'Eliminar',
     'buttonClass' => 'w-11 h-11 rounded-lg flex items-center justify-center cursor-pointer transition-all duration-500',
     'modalTitle' => 'Confirmar Eliminación',
-    'modalMessage' => '¿Estás seguro de que deseas eliminar a :name?',
+    'modalMessage' => '¿Estás seguro de eliminar a :name?',
     'confirmText' => 'Eliminar',
     'cancelText' => 'Cancelar'
 ])
