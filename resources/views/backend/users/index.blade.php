@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-      {{ __('Users') }}
+      {{ __('Users') }} ({{ $users->total() ?? $users->count() }})
     </h2>
   </x-slot>
 
@@ -25,7 +25,7 @@
           <tbody>
             @foreach ($users as $user)
               <tr class="border-t border-gray-300 hover:bg-slate-100 dark:border-gray-700 dark:hover:bg-slate-700">
-                <td class="p-2">{{ $loop->index + 1 }}</td>
+                <td class="p-2 text-center">{{ $loop->iteration }}</td>
                 <td class="p-2">
                   <img
                     src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}"
