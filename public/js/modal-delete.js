@@ -28,3 +28,10 @@ document.addEventListener('click', function(e) {
     }
   });
 });
+// Cerrar modal al hacer clic fuera del contenido
+/* document.addEventListener('click', function(e) {
+  const modal = document.getElementById('{{ $id }}-modal');
+  if (!modal.classList.contains('hidden') && e.target === modal) {
+    closeDeleteModal('delete-user');
+  }
+}); */

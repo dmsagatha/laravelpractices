@@ -22,9 +22,7 @@
             </svg>
           </div>
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-            <h3 class="text-base font-semibold text-gray-900 dark:text-slate-50">
-              {{ $title }}
-            </h3>
+            <h3 class="text-base font-semibold text-gray-900 dark:text-slate-50">{{ $title }}</h3>
             <div class="mt-2">
               <p id="{{ $id }}-message" class="text-base text-gray-500 dark:text-gray-400"></p>
             </div>
@@ -34,7 +32,6 @@
 
       <!-- Footer -->
       <div class="bg-gray-50 dark:bg-gray-700/25 px-4 py-3 sm:flex sm:flex-row-reverse gap-4">
-
         <button type="button" onclick="closeDeleteModal('{{ $id }}')" class="inline-flex w-full justify-center rounded-md px-3 py-2 bg-slate-50 dark:bg-slate-50/10 text-sm font-semibold text-gray-900 dark:text-slate-50 shadow-xs hover:bg-gray-50 dark:hover:bg-slate-50/20 sm:w-auto">
           Cancelar
         </button>
