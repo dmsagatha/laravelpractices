@@ -55,7 +55,8 @@
   </div>
 
   <!-- Modal -->
-  <x-forms.modal-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
+  {{-- <x-forms.modal-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/> --}}
+  <x-forms.modal-delete-user id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
 
   <!-- Modal reutilizable -->
   {{-- <x-forms.modal-confirm-delete id="delete-user" 
