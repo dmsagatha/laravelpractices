@@ -121,7 +121,7 @@ class UserController extends Controller
   
   public function destroy(User $user)
   {
-    // Opcional: Prevenir auto-eliminación
+    // Prevenir auto-eliminación
     if ($user->id === Auth::id()) {     // auth()->id()
       return redirect()->route('users.index')->with('error', 'No puedes eliminar tu propio usuario.');
     }
