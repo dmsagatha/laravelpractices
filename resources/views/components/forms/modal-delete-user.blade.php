@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <!-- Footer -->
+    <!-- Botones -->
     <div class="bg-slate-200/60 dark:bg-slate-700/50 px-6 py-3 flex justify-end items-center gap-4">
       <button onclick="closeDeleteModal('{{ $id }}')" type="button" class="bg-slate-50 text-slate-900 border border-slate-300 focus:outline-none hover:bg-slate-100 focus:ring-4 focus:ring-slate-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-slate-800 dark:text-slate-50 dark:border-slate-600 dark:hover:bg-slate-700 dark:hover:border-slate-600 dark:focus:ring-slate-700">
         Cancelar
