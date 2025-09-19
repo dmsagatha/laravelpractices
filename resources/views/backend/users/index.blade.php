@@ -55,12 +55,11 @@
   </div>
 
   <!-- Modal -->
-  {{-- <x-forms.modal-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/> --}}
-  <x-forms.modal-delete-user id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
+  <x-forms.modal-confirm-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
 
   @push('scripts')
   @endpush
 
   <!-- Renderizar todos los modales -->
-  {{-- @stack('modals') --}}
+  @stack('modals')
 </x-app-layout>
