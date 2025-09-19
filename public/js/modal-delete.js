@@ -4,7 +4,7 @@ function openDeleteModal(id, resource, itemId, itemName) {
   const form = document.getElementById(`${id}-form`);
 
   // Mensaje dinámico
-  message.textContent = `¿Seguro que deseas eliminar ${itemName}?`;
+  message.textContent = `¿Está seguro de eliminar ${itemName}?`;
 
   // Acción dinámica del form
   form.action = `/${resource}/${itemId}`;
@@ -28,10 +28,3 @@ document.addEventListener('click', function(e) {
     }
   });
 });
-// Cerrar modal al hacer clic fuera del contenido
-/* document.addEventListener('click', function(e) {
-  const modal = document.getElementById('{{ $id }}-modal');
-  if (!modal.classList.contains('hidden') && e.target === modal) {
-    closeDeleteModal('delete-user');
-  }
-}); */

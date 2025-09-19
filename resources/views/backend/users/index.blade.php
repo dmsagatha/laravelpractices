@@ -58,47 +58,7 @@
   {{-- <x-forms.modal-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/> --}}
   <x-forms.modal-delete-user id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar"/>
 
-  <!-- Modal reutilizable -->
-  {{-- <x-forms.modal-confirm-delete id="delete-user" 
-      title="Eliminar Usuario"
-      message="¿Seguro que deseas eliminar este usuario?"
-      route-base="usuarios"
-      confirm-text="Sí, eliminar"
-      cancel-text="Cancelar" /> --}}
-
   @push('scripts')
-    {{-- <script>
-      function openDeleteModal(id, resource, itemId, itemName) {
-        const modal = document.getElementById(`${id}-modal`);
-        const message = document.getElementById(`${id}-message`);
-        const form = document.getElementById(`${id}-form`);
-
-        // Mensaje dinámico
-        message.textContent = `¿Seguro que deseas eliminar ${itemName}?`;
-
-        // Acción dinámica del form
-        form.action = `/${resource}/${itemId}`;
-
-        // Mostrar modal
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
-
-      function closeDeleteModal(id) {
-        const modal = document.getElementById(`${id}-modal`);
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-      }
-
-      // Cerrar modal clicando fuera del contenido
-      document.addEventListener('click', function(e) {
-        document.querySelectorAll('[id$="-modal"]').forEach(modal => {
-          if (!modal.classList.contains('hidden') && e.target === modal) {
-            closeDeleteModal(modal.id.replace('-modal', ''));
-          }
-        });
-      });
-    </script> --}}
   @endpush
 
   <!-- Renderizar todos los modales -->
