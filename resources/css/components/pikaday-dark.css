@@ -1,9 +1,9 @@
 .pika-single {
-    @apply dark:bg-slate-800 dark:text-slate-50 dark:rounded-lg dark:border-b-slate-700;
+  @apply dark:bg-slate-800 dark:text-slate-50 dark:rounded-lg dark:border-b-slate-700;
 }
 
 .pika-label {
-    @apply dark:bg-slate-800;
+  @apply dark:bg-slate-800;
 }
 
 .dark-theme .pika-prev,
@@ -23,25 +23,25 @@
 
 .pika-table th,
 .pika-week {
-    @apply dark:text-slate-400;
+	@apply dark:text-slate-400;
 }
 
 .pika-button {
-    @apply dark:bg-slate-800 dark:text-slate-50;
+	@apply dark:bg-slate-800 dark:text-slate-50;
 }
 
 .is-today .pika-button {
-    @apply dark:text-blue-600;
+	@apply dark:text-blue-600;
 }
 
 .is-selected .pika-button {
-    @apply dark:bg-blue-600 dark:text-slate-50 dark:shadow-xs dark:shadow-blue-500;
+  @apply dark:bg-blue-600 dark:text-slate-50 dark:shadow-xs dark:shadow-blue-500;
 }
 
 .is-disabled .pika-button {
-    @apply dark:text-slate-400 dark:opacity-30;
+  @apply dark:text-slate-400 dark:opacity-30;
 }
 
 .pika-button:hover {
-    @apply dark:bg-orange-500 dark:text-slate-50;
+  @apply dark:bg-orange-500 dark:text-slate-50;
 }
