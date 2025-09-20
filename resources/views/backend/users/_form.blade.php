@@ -8,6 +8,32 @@
   <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
     <x-forms.input-floating label="Email" name="email" type="email" :value="$user->email ?? null" />
   </div>
+
+  <!-- Birthdate -->
+  {{-- @php
+    $today = now();
+    $minDate = $today->copy()->subYears(50)->format('Y-m-d');
+    $maxDate = $today->copy()->subYears(18)->format('Y-m-d');
+  @endphp
+
+  <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
+    <label for="birthdate">Fecha de nacimiento</label>
+    <input 
+      type="date" 
+      id="birthdate" 
+      name="birthdate"
+      value="{{ old('birthdate', $user->birthdate ?? '') }}"
+      min="{{ $minDate }}"
+      max="{{ $maxDate }}"
+      class="rounded border-gray-300 dark:bg-slate-800 dark:text-slate-100"
+    >
+    @error('birthdate')
+      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+  </div> --}}
+  <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
+    <x-date-range id="birthdate" name="birthdate" label="Fecha de nacimiento" :value="$user->birthdate ?? null" :sub-years="50" :add-years="-18" />
+  </div>
           
   <!-- Password -->
   <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
@@ -16,27 +42,11 @@
   <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
     <x-forms.input-floating label="{{ isset($user) ? 'Confirmar contraseña (opcional)' : 'Confirmar contraseña' }}" name="password_confirmation" type="password" />
   </div>
-  {{-- <div class="mb-4">
-    <label class="block font-medium mb-1">Password 
-      @if(isset($user))
-        <span class="text-gray-500">(Dejar vacío para no cambiar)</span>
-      @endif
-    </label>
-    <input type="password" name="password" class="border rounded w-full px-3 py-2" {{ isset($user) ? '' : 'required' }}>
-  </div> --}}
 </div>
 
-
 <div class="form-group mb-4">
-  <div class="mb-4">
-    <label class="block font-medium mb-1">Avatar</label>
-    {{-- @if(isset($user) && $user->avatar)
-      <img src="{{ $user->avatar ? asset('storage/'.$user->avatar) : asset('images/default-noavatar.png') }}" alt="Avatar" class="mb-2 w-24 h-24 rounded object-cover" />
-    @endif
-    <div id="avatar-dropzone" class="dropzone"></div>
-    <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*">
-    <img id="avatar-preview" src="#" alt="Avatar Preview" class="mt-2 hidden w-24 h-24 rounded object-cover"> --}}
-    
+  <div class="mt-5 mb-4">
+    <label class="block font-medium mb-1">Avatar</label>    
     <div id="avatar-dropzone" class="dropzone"></div>
     <input type="file" name="avatar" id="avatar-input" class="hidden" accept="image/*">
   </div>

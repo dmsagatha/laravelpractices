@@ -14,11 +14,20 @@ class UserRequest extends FormRequest
   public function rules(): array
   {
     $userId = $this->route('user')?->id;
+    $today = now();
+    $minDate = $today->copy()->subYears(50)->format('Y-m-d'); // 50 años atrás
+    $maxDate = $today->copy()->subYears(18)->format('Y-m-d'); // al menos 18 años
 
     $rules = [
       'name'   => ['required', 'string', 'max:255'],
       'email'  => ['required', 'email', 'unique:users,email,' . $userId],
       'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+      'birthdate' => [
+        'required',
+        'date',
+        "after_or_equal:$minDate",
+        "before_or_equal:$maxDate",
+      ],
     ];
 
     if ($this->isMethod('post')) {
@@ -31,17 +40,4 @@ class UserRequest extends FormRequest
 
     return $rules;
   }
-
-  /* public function messages(): array
-  {
-    return [
-      'name.required'      => 'El nombre es obligatorio.',
-      'email.required'     => 'El email es obligatorio.',
-      'email.unique'       => 'Este email ya está en uso.',
-      'password.required'  => 'La contraseña es obligatoria en la creación.',
-      'password.confirmed' => 'Las contraseñas no coinciden.',
-      'avatar.image'       => 'El archivo debe ser una imagen.',
-      'avatar.mimes'       => 'Formatos permitidos: jpg, jpeg, png.',
-    ];
-  } */
 }
