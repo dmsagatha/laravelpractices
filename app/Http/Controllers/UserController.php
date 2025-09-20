@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManager;
@@ -14,7 +15,8 @@ class UserController extends Controller
 {
   public function index()
   {
-    $users = User::latest()->paginate(10);
+    // $users = User::latest()->paginate(10);
+    $users = User::orderBy('name')->paginate(10);
     return view('backend.users.index', compact('users'));
   }
   
@@ -55,12 +57,9 @@ class UserController extends Controller
     // Guardar contraseña encriptada
     $data['password'] = Hash::make($data['password']);
 
-    $response = User::create($data);
-    
-    if ($response) {
-      return redirect()->route('users.index')->with('success', 'Usuario creado correctamente!');
-    }
-    return redirect()->back()->with('error', 'Error al crear el usuario');
+    User::create($data);
+
+    return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
   }
 
   public function show(User $user)
@@ -70,44 +69,6 @@ class UserController extends Controller
   {
     return view('backend.users.createUpdate', compact('user'));
   }
-  
-  /* public function update(UserRequest $request, User $user)
-  {
-    $data = $request->validated();
-
-    $avatarPath = $user->avatar;
-    if ($request->hasFile('avatar')) {
-      // Borra el avatar anterior si existe
-      if ($user->avatar && file_exists(public_path($user->avatar))) {
-        unlink(public_path($user->avatar));
-      }
-      $imageFile = $request->file('avatar');
-      $filename = uniqid().'.'.$imageFile->getClientOriginalExtension();
-      $path = public_path('avatars/'.$filename);
-
-      $manager = new ImageManager(new Driver());
-      $image = $manager->read($imageFile);
-      $image->cover(300, 300);
-      $image->toJpeg()->save($path);
-
-      // $avatarPath = 'avatars/'.$filename;
-      $data['avatar'] = 'avatars/'.$filename;
-    }
-
-    // Si no se envía la contraseña, no hay cambios
-    if (!empty($data['password'])) {
-      $data['password'] = Hash::make($data['password']);
-    } else {
-      unset($data['password']);
-    }
-
-    $response = $user->update($data);
-
-    if ($response) {
-      return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente!');
-    }
-    return redirect()->back()->with('error', 'Error al actualizar el usuario');
-  } */
   
   public function update(UserRequest $request, User $user)
   {
@@ -153,19 +114,22 @@ class UserController extends Controller
       unset($data['password']);
     }
 
-    $response = $user->update($data);
-
-    if ($response) {
-      return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente!');
-    }
-    return redirect()->back()->with('error', 'Error al actualizar el usuario');
+    $user->update($data);
+    
+    return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente!');
   }
   
   public function destroy(User $user)
   {
+    // Prevenir auto-eliminación
+    if ($user->id === Auth::id()) {     // auth()->id()
+      return redirect()->route('users.index')->with('error', 'No puedes eliminar tu propio usuario.');
+    }
+
     if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
       Storage::disk('public')->delete($user->avatar);
     }
+    
     $user->delete();
 
     return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');

@@ -16,5 +16,8 @@
     "laravel-vite-plugin": "^2.0.0",
     "tailwindcss": "^4.1.11",
     "vite": "^7.0.6"
+  },
+  "dependencies": {
+    "toastify-js": "^1.12.0"
   }
 }

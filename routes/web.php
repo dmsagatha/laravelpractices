@@ -20,7 +20,7 @@ Route::controller(ImageController::class)->group(function () {
 
 Route::resource('usuarios', UserController::class)
   ->parameters(['usuarios' => 'user'])
-  ->names('users');
+  ->names('users')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
