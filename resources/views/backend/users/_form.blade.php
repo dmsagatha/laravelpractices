@@ -32,7 +32,15 @@
     @enderror
   </div> --}}
   <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-    <x-date-range id="birthdate" name="birthdate" label="Fecha de nacimiento" :value="$user->birthdate ?? null" :sub-years="50" :add-years="-18" />
+    {{-- <x-date-range id="birthdate" name="birthdate" label="Fecha de nacimiento" :value="$user->birthdate ?? null" :min="now()->subYears(50)->format('Y-m-d')" :max="now()->subYears(18)->format('Y-m-d')" /> --}}
+
+    <x-date-range 
+      id="birthdate"
+      name="birthdate"
+      label="Fecha de nacimiento"
+      :min="now()->subYears(50)->format('Y-m-d')"
+      :max="now()->subYears(18)->format('Y-m-d')"
+    />
   </div>
           
   <!-- Password -->

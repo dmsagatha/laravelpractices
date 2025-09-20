@@ -1,0 +1,47 @@
+.pika-single {
+    @apply dark:bg-slate-800 dark:text-slate-50 dark:rounded-lg dark:border-b-slate-700;
+}
+
+.pika-label {
+    @apply dark:bg-slate-800;
+}
+
+.dark-theme .pika-prev,
+.dark-theme .is-rtl .pika-next {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAQAAACGG/bgAAAAQ0lEQVR4Ae3KIQ4AIBTD0N0/IeHGI3UIRA3ut/Zl+ltXc5++htVAmIAwAWECwgSEKbgthEoIlRAqIVRCqINQB9nDgQd7ktwFo6UpWQAAAABJRU5ErkJggg==');
+}
+
+.dark-theme .pika-next,
+.dark-theme .is-rtl .pika-prev {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAQAAACGG/bgAAAAP0lEQVQ4y+3TMQoAMAgEwfwfAvvjTZ1uGzuvHhBPPGczEG+FRqqRaqQaqUaqkX6QBmmjacvQ6qEVTjsh+xizebvlaWptGXZAAAAAAElFTkSuQmCC');
+}
+
+.pika-select-month,
+.pika-select-year {
+  @apply dark:bg-slate-800 dark:text-slate-50;
+}
+
+.pika-table th,
+.pika-week {
+    @apply dark:text-slate-400;
+}
+
+.pika-button {
+    @apply dark:bg-slate-800 dark:text-slate-50;
+}
+
+.is-today .pika-button {
+    @apply dark:text-blue-600;
+}
+
+.is-selected .pika-button {
+    @apply dark:bg-blue-600 dark:text-slate-50 dark:shadow-xs dark:shadow-blue-500;
+}
+
+.is-disabled .pika-button {
+    @apply dark:text-slate-400 dark:opacity-30;
+}
+
+.pika-button:hover {
+    @apply dark:bg-orange-500 dark:text-slate-50;
+}
