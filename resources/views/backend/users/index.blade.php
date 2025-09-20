@@ -27,9 +27,7 @@
               <tr class="border-t border-gray-300 hover:bg-slate-100 dark:border-gray-700 dark:hover:bg-slate-700">
                 <td class="p-2 text-center">{{ $loop->iteration }}</td>
                 <td class="p-2">
-                  <img
-                    src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}"
-                    alt="avatar" class="h-12 w-12 rounded-full object-cover" />
+                  <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="w-10 h-10 rounded-full object-cover" />
                 </td>
                 <td class="p-2">{{ $user->name }}</td>
                 <td class="p-2">{{ $user->email }}</td>

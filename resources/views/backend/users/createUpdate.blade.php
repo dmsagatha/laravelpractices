@@ -26,9 +26,12 @@
           @include('backend.users._form')
 
           <div class="pt-4 bg-slate-50 dark:bg-slate-800 text-center space-y-2">
-            <button type="submit" class="inline-flex items-center justify-center bg-green-600 border border-transparent rounded-md font-medium px-3 py-2 mt-4 mr-2 mb-2 text-center text-slate-50 hover:bg-green-500 focus:outline-none focus:border-green-700 focus:ring-0 focus:ring-green-200 active:bg-green-600 disabled:opacity-25 transition">
+            <x-forms.button-danger>
+              <a href="{{ route('users.index') }}">Cancelar</a>
+            </x-forms.button-danger>
+            <x-forms.button-green>
               {{ isset($user) ? 'Actualizar' : 'Crear' }}
-            </button>
+            </x-forms.button-green>
           </div>
         </form>
       </div>
