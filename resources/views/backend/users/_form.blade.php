@@ -10,37 +10,9 @@
   </div>
 
   <!-- Birthdate -->
-  {{-- @php
-    $today = now();
-    $minDate = $today->copy()->subYears(50)->format('Y-m-d');
-    $maxDate = $today->copy()->subYears(18)->format('Y-m-d');
-  @endphp
-
   <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-    <label for="birthdate">Fecha de nacimiento</label>
-    <input 
-      type="date" 
-      id="birthdate" 
-      name="birthdate"
-      value="{{ old('birthdate', $user->birthdate ?? '') }}"
-      min="{{ $minDate }}"
-      max="{{ $maxDate }}"
-      class="rounded border-gray-300 dark:bg-slate-800 dark:text-slate-100"
-    >
-    @error('birthdate')
-      <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-    @enderror
-  </div> --}}
-  <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-    {{-- <x-date-range id="birthdate" name="birthdate" label="Fecha de nacimiento" :value="$user->birthdate ?? null" :min="now()->subYears(50)->format('Y-m-d')" :max="now()->subYears(18)->format('Y-m-d')" /> --}}
-
-      <!-- Edad (18 – 65 años) -->
-    <x-date-range 
-      id="birthdate"
-      name="birthdate"
-      label="Fecha de nacimiento"
-      mode="age"
-    />
+    <!-- Edad (18 – 65 años) -->
+    <x-date-range id="birthdate" name="birthdate" label="Fecha de nacimiento" mode="age" />
   </div>
           
   <!-- Password -->
