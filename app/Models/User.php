@@ -39,7 +39,15 @@ class User extends Authenticatable
     return [
       'email_verified_at' => 'datetime',
       'password' => 'hashed',
-      'birthdate' => 'date:Y-m-d',
+      'birthdate' => 'date',
     ];
+  }
+
+  // Accesor personalizado
+  public function getBirthdayFormattedAttribute()
+  {
+    return $this->birthday
+        ? $this->birthday->format('Y-m-d')
+        : null;
   }
 }

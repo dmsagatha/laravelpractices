@@ -19,6 +19,7 @@
               <th class="p-2">Avatar</th>
               <th class="p-2">Nombre</th>
               <th class="p-2">Correo electrónico</th>
+              <th class="p-2">Fecha de nacimiento</th>
               <th class="p-2">Acciones</th>
             </tr>
           </thead>
@@ -31,6 +32,7 @@
                 </td>
                 <td class="p-2">{{ $user->name }}</td>
                 <td class="p-2">{{ $user->email }}</td>
+                <td class="text-center">{{ $user->birthdate?->format('Y-m-d') }}</td>
                 <td class="flex items-center justify-center gap-4 py-5 text-center">
                   <!-- Editar -->
                   <a href="{{ route('users.edit', $user) }}"
