@@ -15,8 +15,8 @@ class UserRequest extends FormRequest
   {
     $userId = $this->route('user')?->id;
     $today = now();
-    $minDate = $today->copy()->subYears(50)->format('Y-m-d'); // 50 años atrás
-    $maxDate = $today->copy()->subYears(18)->format('Y-m-d'); // al menos 18 años
+    $minDate = $today->copy()->subYears(65)->format('Y-m-d'); // 65 años atrás
+    $maxDate = $today->copy()->subYears(18)->format('Y-m-d'); // Al menos 18 años
 
     $rules = [
       'name'   => ['required', 'string', 'max:255'],

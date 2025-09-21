@@ -11,8 +11,7 @@
 
   <!-- Birthdate -->
   <div class="relative z-0 col-span-6 sm:col-span-3 md:col-span-2 mt-2">
-    <!-- Edad (18 – 65 años) -->
-    <x-date-range id="birthdate" name="birthdate" label="Fecha de nacimiento" mode="age" />
+    <x-date-range id="birthdate" name="birthdate" label="Fecha de nacimiento" :value="$user->birthdate ?? null" mode="age" />
   </div>
           
   <!-- Password -->
