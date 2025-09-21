@@ -8,8 +8,8 @@ Alpine.start();
 
 import Toastify from "toastify-js"
 import "toastify-js/src/toastify.css"
-import Pikaday from "pikaday";
-import dayjs from "dayjs";
+import Pikaday from "pikaday"
+import dayjs from "dayjs"
 
 // Ejemplo global para usar en todo el proyecto
 window.Toastify = Toastify;

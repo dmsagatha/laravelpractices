@@ -46,6 +46,7 @@
   @push('scripts')
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
+    <!-- Configuración de la imagen - Dropzone -->
     <script>
       Dropzone.autoDiscover = false;
 
