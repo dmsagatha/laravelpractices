@@ -282,6 +282,6 @@ return [
         'work'                     => 'trabajo',
         'year'                     => 'año',
 
-        'birthdate'                => 'fecha cumpleaños',
+        'birthdate'                => 'fecha de cumpleaños',
     ],
 ];
