@@ -40,7 +40,8 @@
         {{ $slot }}
       </main>
     </div>
-
+    
+    <!-- Notificaciones  -->
     <x-toastify />
 
     <!-- Iconos Lucide -->
@@ -48,8 +49,6 @@
     <script>
       lucide.createIcons();
     </script>
-    
-    {{-- <script src="{{ asset('js/modal-delete.js') }}"></script> --}}
 
     @stack('scripts')
     @stack('modals')

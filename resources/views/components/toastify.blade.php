@@ -1,8 +1,10 @@
 @php
-  $types = ['success' => 'linear-gradient(to right, #00b09b, #96c93d)',
-            'error'   => 'linear-gradient(to right, #ff5f6d, #ffc371)',
-            'warning' => 'linear-gradient(to right, #f7b733, #fc4a1a)',
-            'info'    => 'linear-gradient(to right, #36d1dc, #5b86e5)'];
+  $types = [
+    'success' => 'linear-gradient(to right, #00b09b, #96c93d)',
+    'error'   => 'linear-gradient(to right, #ff5f6d, #ffc371)',
+    'warning' => 'linear-gradient(to right, #f7b733, #fc4a1a)',
+    'info'    => 'linear-gradient(to right, #36d1dc, #5b86e5)'
+  ];
 @endphp
 
 @foreach ($types as $type => $bg)
