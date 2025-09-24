@@ -13,9 +13,7 @@
       </main>
 
       <footer class="modal__footer flex justify-end gap-2">
-        <button class="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-md" data-micromodal-close>
-          Cancelar
-        </button>
+        <button class="rounded-md bg-gray-300 px-4 py-2 dark:bg-gray-700" data-micromodal-close>Cancelar</button>
         {{ $footer }}
       </footer>
     </div>
