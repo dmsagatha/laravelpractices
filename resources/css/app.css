@@ -16,3 +16,9 @@
     'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
     'Noto Color Emoji';
 }
+
+/* Campos obligatorios */
+.form-group .required::after {
+  content: " *";
+  @apply text-rose-500 dark:text-slate-50;
+}
