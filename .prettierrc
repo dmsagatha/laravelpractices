@@ -5,7 +5,7 @@
   "tabWidth": 2,
   "trailingComma": "all",
   "endOfLine": "lf",
-  "useTabs": true,
+  "useTabs": false,
   "plugins": [
     "prettier-plugin-blade",
     "prettier-plugin-tailwindcss"
