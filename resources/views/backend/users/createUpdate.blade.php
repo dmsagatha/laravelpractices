@@ -31,7 +31,15 @@
 						@method('PUT')
 					@endif
 
-					@include('backend.users._form')
+					{{-- @include('backend.users._form') --}}
+          <details class="rounded-lg border border-transparent p-6 details-content:mt-3 details-content:-ml-0.5" open>
+  <summary class="text-sm leading-6 font-semibold text-gray-900 select-none dark:text-white">
+    Why do they call it Ovaltine?
+  </summary>
+  <div class="border-gray-200 bg-gray-50 py-3 pl-3 dark:border-white/10 dark:bg-gray-800/50 ...">
+    <p>The mug is round. The jar is round. They should call it Roundtine.</p>
+  </div>
+</details>
 
 					<div class="space-y-2 bg-slate-50 pt-4 text-center dark:bg-slate-800">
 						<x-forms.button-danger>
