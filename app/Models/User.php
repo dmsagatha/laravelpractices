@@ -17,7 +17,7 @@ class User extends Authenticatable
    *
    * @var list<string>
    */
-  protected $fillable = ['name', 'email', 'password', 'avatar'];
+  protected $fillable = ['name', 'email', 'password', 'avatar', 'birthdate'];
 
   /**
    * The attributes that should be hidden for serialization.
@@ -39,6 +39,15 @@ class User extends Authenticatable
     return [
       'email_verified_at' => 'datetime',
       'password' => 'hashed',
+      'birthdate' => 'date',
     ];
+  }
+
+  // Accesor personalizado
+  public function getBirthdayFormattedAttribute()
+  {
+    return $this->birthday
+        ? $this->birthday->format('Y-m-d')
+        : null;
   }
 }

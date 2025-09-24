@@ -281,5 +281,7 @@ return [
         'winner'                   => 'ganador',
         'work'                     => 'trabajo',
         'year'                     => 'año',
+
+        'birthdate'                => 'fecha de cumpleaños',
     ],
 ];
