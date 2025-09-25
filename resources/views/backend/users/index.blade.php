@@ -8,60 +8,73 @@
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="overflow-hidden bg-slate-50 shadow-sm sm:rounded-lg dark:bg-gray-800">
       <div class="p-6 text-gray-900 dark:text-gray-100">
-        <a
-          href="{{ route('users.create') }}"
-          class="relative mr-2 mb-2 inline-flex items-center justify-end rounded-lg border border-blue-500 p-2 font-medium text-blue-600 transition-all duration-150 ease-linear outline-none hover:bg-blue-500 hover:text-slate-50 focus:outline-none active:bg-blue-600"
-        >
+        <a href="{{ route('users.create') }}" class="relative mr-2 mb-2 inline-flex items-center justify-end rounded-lg border border-blue-500 p-2 font-medium text-blue-600 transition-all duration-150 ease-linear outline-none hover:bg-blue-500 hover:text-slate-50 focus:outline-none active:bg-blue-600">
           <i data-lucide="plus-circle" class="mr-1"></i>
           Nuevo Usuario
         </a>
-        <table class="mt-6 w-full border border-gray-300 dark:border-gray-600">
-          <thead class="bg-gray-200 dark:bg-gray-900">
-            <tr class="">
-              <th class="p-2">N°</th>
-              <th class="p-2">Avatar</th>
-              <th class="p-2">Nombre</th>
-              <th class="p-2">Correo electrónico</th>
-              <th class="p-2">Fecha de nacimiento</th>
-              <th class="p-2">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($users as $user)
-              <tr class="border-t border-gray-300 hover:bg-slate-100 dark:border-gray-700 dark:hover:bg-slate-700">
-                <td class="p-2 text-center">{{ $loop->iteration }}</td>
-                <td class="p-2">
-                  <img
-                    src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}"
-                    alt="avatar"
-                    class="h-10 w-10 rounded-full object-cover"
-                  />
-                </td>
-                <td class="p-2">{{ $user->name }}</td>
-                <td class="p-2">{{ $user->email }}</td>
-                <td class="text-center">{{ $user->birthdate?->format('Y-m-d') }}</td>
-                <td class="flex items-center justify-center gap-4 py-5 text-center">
-                  <!-- Editar -->
-                  <a
-                    href="{{ route('users.edit', $user) }}"
-                    class="text-indigo-600 hover:text-indigo-800 dark:text-blue-400 dark:hover:text-slate-50"
-                  >
-                    <i data-lucide="pencil" class="h-4 w-4"></i>
-                  </a>
-                  <!-- Eliminar -->
-                  <button
-                    onclick="openDeleteModal('delete-user', 'usuarios', {{ $user->id }}, 'el usuario {{ $user->name }}')"
-                  >
-                    <i
-                      data-lucide="trash-2"
-                      class="h-4 w-4 text-red-600 hover:text-red-800 dark:hover:text-red-400"
-                    ></i>
-                  </button>
-                </td>
+        
+        <form action="{{ route('users.sendMessage') }}" method="POST">
+          @csrf
+          <table class="mt-6 w-full border border-gray-300 dark:border-gray-600">
+            <thead class="bg-gray-200 dark:bg-gray-900">
+              <tr class="">
+                <th class="p-2">N°</th>
+                <th class="p-2">
+                  {{-- Enviar mensaje <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)" /> --}}
+                  Enviar mensaje <input type="checkbox" id="select-all" />
+                </th>
+                <th class="p-2">Avatar</th>
+                <th class="p-2">Nombre</th>
+                <th class="p-2">Correo electrónico</th>
+                <th class="p-2">Fecha de nacimiento</th>
+                <th class="p-2">Acciones</th>
               </tr>
-            @endforeach
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @foreach ($users as $user)
+                <tr class="border-t border-gray-300 hover:bg-slate-100 dark:border-gray-700 dark:hover:bg-slate-700">
+                  <td class="p-2 text-center">{{ $loop->iteration }}</td>
+                  <td class="p-2 text-center">
+                    <input type="checkbox" name="user_ids[]" value="{{ $user->id }}" />
+                  </td>
+                  <td class="p-2">
+                    <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="h-10 w-10 rounded-full object-cover" />
+                  </td>
+                  <td class="p-2">{{ $user->name }}</td>
+                  <td class="p-2">{{ $user->email }}</td>
+                  <td class="text-center">{{ $user->birthdate?->format('Y-m-d') }}</td>
+                  <td class="flex items-center justify-center gap-4 py-5 text-center">
+                    <!-- Editar -->
+                    <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-800 dark:text-blue-400 dark:hover:text-slate-50">
+                      <i data-lucide="pencil" class="h-4 w-4"></i>
+                    </a>
+                    <!-- Eliminar -->
+                    <button
+                      onclick="openDeleteModal('delete-user', 'usuarios', {{ $user->id }}, 'el usuario {{ $user->name }}')"
+                    >
+                      <i
+                        data-lucide="trash-2"
+                        class="h-4 w-4 text-red-600 hover:text-red-800 dark:hover:text-red-400"
+                      ></i>
+                    </button>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+
+          <div class="mb-4">
+            <label for="message" class="block font-semibold">Mensaje:</label>
+            <textarea name="message" id="message" rows="4" class="w-full border rounded p-2"></textarea>
+            @error('message')
+              <p class="text-red-600 text-sm">{{ $message }}</p>
+            @enderror
+          </div>
+
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Enviar Mensaje
+          </button>
+        </form>
 
         {{ $users->links() }}
       </div>
@@ -72,7 +85,21 @@
   <x-forms.modal-confirm-delete id="delete-user" title="Eliminar usuario" confirm-text="Sí, eliminar" />
 
   @push('scripts')
-    
+    <script>
+      // Función para alternar la selección de todos los checkboxes
+      /* document.getElementById('select-all').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[name="user_ids[]"]');
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = this.checked;
+        });
+      }); */
+      // Esta es una prueba de envío de mensajes a usuarios seleccionados!
+      document.getElementById('select-all').addEventListener('change', function(e) {
+        document.querySelectorAll('input[name="users[]"]').forEach(cb => {
+            cb.checked = e.target.checked;
+        });
+      });
+    </script>
   @endpush
 
   <!-- Renderizar todos los modales -->

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\UserMessageMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -133,5 +135,22 @@ class UserController extends Controller
     $user->delete();
 
     return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
+  }
+
+  public function sendMessage(Request $request)
+  {
+    $request->validate([
+      'user_ids' => ['required', 'array'],
+      'message'  => ['required', 'string', 'max:1000'],
+    ]);
+
+    $users = User::whereIn('id', $request->users)->get();
+
+    foreach ($users as $user)
+    {
+      Mail::to($user->email)->send(new UserMessageMail($request->message));
+    }
+
+    return back()->with('success', 'Mensaje enviado a los usuarios seleccionados.');
   }
 }
