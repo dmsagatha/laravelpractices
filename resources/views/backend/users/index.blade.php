@@ -20,8 +20,7 @@
               <tr class="">
                 <th class="p-2">N°</th>
                 <th class="p-2">
-                  {{-- Enviar mensaje <input type="checkbox" id="select-all" onclick="toggleSelectAll(this)" /> --}}
-                  Enviar mensaje <input type="checkbox" id="select-all" />
+                  Enviar mensaje <input type="checkbox" id="select-all">
                 </th>
                 <th class="p-2">Avatar</th>
                 <th class="p-2">Nombre</th>
@@ -35,7 +34,7 @@
                 <tr class="border-t border-gray-300 hover:bg-slate-100 dark:border-gray-700 dark:hover:bg-slate-700">
                   <td class="p-2 text-center">{{ $loop->iteration }}</td>
                   <td class="p-2 text-center">
-                    <input type="checkbox" name="users[]" value="{{ $user->id }}" />
+                    <input type="checkbox" name="users[]" value="{{ $user->id }}">
                   </td>
                   <td class="p-2">
                     <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="h-10 w-10 rounded-full object-cover" />
@@ -81,19 +80,12 @@
 
   @push('scripts')
     <script>
-      // Función para alternar la selección de todos los checkboxes
-      document.getElementById('select-all').addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('input[name="users[]"]');
-        checkboxes.forEach(checkbox => {
-          checkbox.checked = this.checked;
-        });
-      });
       // Esta es una prueba de envío de mensajes a usuarios seleccionados!
-      /* document.getElementById('select-all').addEventListener('change', function(e) {
+      document.getElementById('select-all').addEventListener('change', function(e) {
         document.querySelectorAll('input[name="users[]"]').forEach(cb => {
           cb.checked = e.target.checked;
         });
-      }); */
+      });
     </script>
   @endpush
 

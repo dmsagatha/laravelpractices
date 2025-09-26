@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
       'password'  => Hash::make('superadmin'),
     ]);
 
-    // User::factory(10)->create();
+    User::factory(3)->create();
   }
 }

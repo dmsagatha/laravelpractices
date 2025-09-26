@@ -24,7 +24,7 @@ Route::resource('usuarios', UserController::class)
   ->names('users')->middleware(['auth', 'verified']);
 
 // Envío de correo de bienvenida
-// Route::get('/enviar-correo', [EmailsController::class, 'welcomeEmail'])->name('send.welcome.email');
+Route::get('/enviar-correo', [EmailsController::class, 'welcomeEmail'])->name('send.welcome.email');
 Route::post('/usuarios/enviar-mensaje', [UserController::class, 'sendMessage'])
   ->name('users.sendMessage');
 
