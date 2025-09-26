@@ -5,8 +5,8 @@
     <title>Mensaje</title>
   </head>
   <body>
-    <h2>¡Hola!</h2>
-    <p>{{ $messageContent }}</p>
+    <h2>¡Hola {{ $user->name }}!</h2>
+    <p>{{ $contentMessage }}</p>
     <p>
       Saludos,
       <br />

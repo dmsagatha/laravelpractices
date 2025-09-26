@@ -148,7 +148,7 @@ class UserController extends Controller
     $users   = User::whereIn('id', $userIds)->get();
 
     foreach ($users as $user) {
-      Mail::to($user->email)->send(new UserMessageMail($request->message));
+      Mail::to($user->email)->send(new UserMessageMail($user, $request->message));
     }
 
     return back()->with('success', 'Mensaje enviado a los usuarios seleccionados.');

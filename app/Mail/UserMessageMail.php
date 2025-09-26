@@ -2,8 +2,10 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -12,14 +14,16 @@ class UserMessageMail extends Mailable
 {
   use Queueable, SerializesModels;
 
-  public $messageContent;
+  public $user;
+  public $contentMessage;
 
   /**
    * Create a new message instance.
    */
-  public function __construct($messageContent)
+  public function __construct(User $user, string $contentMessage)
   {
-    $this->messageContent = $messageContent;
+    $this->user = $user;
+    $this->contentMessage = $contentMessage;
   }
 
   /**
@@ -28,6 +32,7 @@ class UserMessageMail extends Mailable
   public function envelope(): Envelope
   {
     return new Envelope(
+      from: new Address('superadmin@superadmin.net', 'Admin'),
       subject: 'Mensaje de la aplicación',
     );
   }
@@ -39,7 +44,10 @@ class UserMessageMail extends Mailable
   {
     return new Content(
       view: 'emails.user-message',
-      with: ['messageContent' => $this->messageContent],
+      with: [
+        'contentMessage' => $this->contentMessage,
+        'user' => $this->user,
+      ],
     );
   }
 
