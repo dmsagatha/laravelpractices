@@ -17,7 +17,7 @@
           @csrf
           <table class="mt-6 w-full border border-gray-300 dark:border-gray-600">
             <thead class="bg-gray-200 dark:bg-gray-900">
-              <tr class="">
+              <tr>
                 <th class="p-2">N°</th>
                 <th class="p-2">
                   <p>Enviar mensaje</p>
