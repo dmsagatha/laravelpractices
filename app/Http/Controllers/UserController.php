@@ -139,7 +139,8 @@ class UserController extends Controller
 
   public function sendMessage(Request $request)
   {
-    $request->validate([
+    // Admin - SuperAdmin
+    /* $request->validate([
       'users'   => ['required', 'array', 'min:1'],
       'message' => ['required', 'string', 'max:1000'],
     ]);
@@ -151,6 +152,28 @@ class UserController extends Controller
       Mail::to($user->email)->send(new UserMessageMail($user, $request->message));
     }
 
-    return back()->with('success', 'Mensaje enviado a los usuarios seleccionados.');
+    return back()->with('success', 'Mensaje enviado a los usuarios seleccionados.'); */
+
+    // Usuario autenticado
+    $request->validate([
+      'users'   => ['required', 'array', 'min:1'],
+      'message' => ['required', 'string', 'max:1000'],
+    ]);
+
+    $sender = Auth::user();
+    $users = User::whereIn('id', $request->input('users', []))->get();
+
+    foreach ($users as $user) {
+      Mail::to($user->email)->send(
+        new UserMessageMail(
+          $user,
+          $request->message,
+          $sender->name,      // Nombre del remitente
+          $sender->email
+        )
+      );
+    }
+
+    return back()->with('success', 'Mensajes enviados correctamente.');
   }
 }

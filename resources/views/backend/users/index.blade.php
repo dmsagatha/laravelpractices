@@ -20,7 +20,8 @@
               <tr class="">
                 <th class="p-2">N°</th>
                 <th class="p-2">
-                  Enviar mensaje <input type="checkbox" id="select-all">
+                  <p>Enviar mensaje</p>
+                  <input type="checkbox" id="select-all">
                 </th>
                 <th class="p-2">Avatar</th>
                 <th class="p-2">Nombre</th>

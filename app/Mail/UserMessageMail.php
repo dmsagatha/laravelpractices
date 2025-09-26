@@ -16,14 +16,18 @@ class UserMessageMail extends Mailable
 
   public $user;
   public $contentMessage;
+  public $senderName;
+  public $senderEmail;
 
   /**
-   * Create a new message instance.
+   * Crear una nueva instancia de mensaje.
    */
-  public function __construct(User $user, string $contentMessage)
+  public function __construct(User $user, string $contentMessage, string $senderName, string $senderEmail)
   {
     $this->user = $user;
     $this->contentMessage = $contentMessage;
+    $this->senderName = $senderName;
+    $this->senderEmail = $senderEmail;
   }
 
   /**
@@ -32,8 +36,10 @@ class UserMessageMail extends Mailable
   public function envelope(): Envelope
   {
     return new Envelope(
-      from: new Address('superadmin@superadmin.net', 'Admin'),
-      subject: 'Mensaje de la aplicación',
+      // from: new Address('superadmin@superadmin.net', 'Admin'),
+      // subject: 'Mensaje de la aplicación',
+      from: new Address($this->senderEmail, $this->senderName),  // Remitente dinámico
+      subject: 'Mensaje para ' . $this->user->name,
     );
   }
 
