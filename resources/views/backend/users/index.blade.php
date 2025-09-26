@@ -35,7 +35,7 @@
                 <tr class="border-t border-gray-300 hover:bg-slate-100 dark:border-gray-700 dark:hover:bg-slate-700">
                   <td class="p-2 text-center">{{ $loop->iteration }}</td>
                   <td class="p-2 text-center">
-                    <input type="checkbox" name="user_ids[]" value="{{ $user->id }}" />
+                    <input type="checkbox" name="users[]" value="{{ $user->id }}" />
                   </td>
                   <td class="p-2">
                     <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="h-10 w-10 rounded-full object-cover" />
@@ -49,13 +49,8 @@
                       <i data-lucide="pencil" class="h-4 w-4"></i>
                     </a>
                     <!-- Eliminar -->
-                    <button
-                      onclick="openDeleteModal('delete-user', 'usuarios', {{ $user->id }}, 'el usuario {{ $user->name }}')"
-                    >
-                      <i
-                        data-lucide="trash-2"
-                        class="h-4 w-4 text-red-600 hover:text-red-800 dark:hover:text-red-400"
-                      ></i>
+                    <button onclick="openDeleteModal('delete-user', 'usuarios', {{ $user->id }}, 'el usuario {{ $user->name }}')">
+                      <i data-lucide="trash-2" class="h-4 w-4 text-red-600 hover:text-red-800 dark:hover:text-red-400"></i>
                     </button>
                   </td>
                 </tr>
@@ -87,18 +82,18 @@
   @push('scripts')
     <script>
       // Función para alternar la selección de todos los checkboxes
-      /* document.getElementById('select-all').addEventListener('change', function() {
-        const checkboxes = document.querySelectorAll('input[name="user_ids[]"]');
+      document.getElementById('select-all').addEventListener('change', function() {
+        const checkboxes = document.querySelectorAll('input[name="users[]"]');
         checkboxes.forEach(checkbox => {
           checkbox.checked = this.checked;
         });
-      }); */
-      // Esta es una prueba de envío de mensajes a usuarios seleccionados!
-      document.getElementById('select-all').addEventListener('change', function(e) {
-        document.querySelectorAll('input[name="users[]"]').forEach(cb => {
-            cb.checked = e.target.checked;
-        });
       });
+      // Esta es una prueba de envío de mensajes a usuarios seleccionados!
+      /* document.getElementById('select-all').addEventListener('change', function(e) {
+        document.querySelectorAll('input[name="users[]"]').forEach(cb => {
+          cb.checked = e.target.checked;
+        });
+      }); */
     </script>
   @endpush
 

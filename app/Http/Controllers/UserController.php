@@ -140,11 +140,13 @@ class UserController extends Controller
   public function sendMessage(Request $request)
   {
     $request->validate([
-      'user_ids' => ['required', 'array'],
+      'user_ids' => ['required', 'array', 'min:1'],
       'message'  => ['required', 'string', 'max:1000'],
     ]);
 
-    $users = User::whereIn('id', $request->users)->get();
+    $userIds = $request->input('users', []);
+
+    $users = User::whereIn('id', $userIds)->get();
 
     foreach ($users as $user)
     {
