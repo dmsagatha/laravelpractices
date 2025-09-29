@@ -13,25 +13,45 @@
 
           <!-- Campo oculto con el mensaje ya formateado -->
           <input type="hidden" name="message" value="Este es el mensaje predeterminado desde user-message.blade.php" />
-
-          <table class="w-full table-auto border border-gray-300">
-            <thead class="bg-gray-100">
+          
+          <table class="mt-6 w-full border border-gray-300 dark:border-gray-600">
+            <thead class="bg-gray-200 dark:bg-gray-900">
               <tr>
+                <th class="p-2">N°</th>
                 <th class="p-2">
+                  <p>Enviar mensaje</p>
                   <input type="checkbox" id="selectAll" />
                 </th>
-                <th class="p-2 text-left">Nombre</th>
-                <th class="p-2 text-left">Email</th>
+                <th class="p-2">Avatar</th>
+                <th class="p-2">Nombre</th>
+                <th class="p-2">Correo electrónico</th>
+                <th class="p-2">Fecha de nacimiento</th>
+                <th class="p-2">Acciones</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($users as $user)
-                <tr class="border-b">
-                  <td class="p-2 text-center">
+              <tr class="border-t border-gray-300 hover:bg-slate-100 dark:border-gray-700 dark:hover:bg-slate-700">
+                <td class="p-2 text-center">{{ $loop->iteration }}</td>
+                <td class="p-2 text-center">
                     <input type="checkbox" name="users[]" value="{{ $user->id }}" class="userCheckbox" />
+                  </td>
+                  <td class="p-2">
+                    <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/default-noavatar.png') }}" alt="avatar" class="h-10 w-10 rounded-full object-cover" />
                   </td>
                   <td class="p-2">{{ $user->name }}</td>
                   <td class="p-2">{{ $user->email }}</td>
+                  <td class="text-center">{{ $user->birthdate?->format('Y-m-d') }}</td>
+                  <td class="flex items-center justify-center gap-4 py-5 text-center">
+                    <!-- Editar -->
+                    <a href="{{ route('users.edit', $user) }}" class="text-indigo-600 hover:text-indigo-800 dark:text-blue-400 dark:hover:text-slate-50">
+                      <i data-lucide="pencil" class="h-4 w-4"></i>
+                    </a>
+                    <!-- Eliminar -->
+                    <button onclick="openDeleteModal('delete-user', 'usuarios', {{ $user->id }}, 'el usuario {{ $user->name }}')">
+                      <i data-lucide="trash-2" class="h-4 w-4 text-red-600 hover:text-red-800 dark:hover:text-red-400"></i>
+                    </button>
+                  </td>
                 </tr>
               @endforeach
             </tbody>
@@ -46,6 +66,8 @@
             </button>
           </div>
         </form>
+
+        {{ $users->links() }}
       </div>
     </div>
   </div>

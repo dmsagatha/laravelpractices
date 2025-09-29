@@ -38,9 +38,9 @@ class EmailsController extends Controller
         );
       }
 
-      return back()->with('success', 'Mensajes enviados correctamente ✅');
+      return back()->with('success', 'Mensajes enviados correctamente');
     } catch (\Exception $e) {
-      return back()->with('error', 'Error al enviar los mensajes ❌ -> ' . $e->getMessage());
+      return back()->with('error', 'Error al enviar los mensajes -> ' . $e->getMessage());
     }
   }
   
